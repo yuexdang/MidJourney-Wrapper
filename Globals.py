@@ -5,13 +5,13 @@ my_variable = os.environ.get('MY_VARIABLE')
 print(my_variable)
 #strings
 
-DAVINCI_TOKEN = [Token of Discord bot]
+DAVINCI_TOKEN = os.environ.get('DAVINCI_TOKEN')
 
-SERVER_ID = [Server id here]
+SERVER_ID = os.environ.get('SERVER_ID')
 
-SALAI_TOKEN = [Token of the Account from which you paid MidJourney ]
+SALAI_TOKEN = os.environ.get('SALAI_TOKEN')
 
-CHANNEL_ID = [Channel in which commands are sent]
+CHANNEL_ID = os.environ.get('CHANNEL_ID')
 
 #boolean
 USE_MESSAGED_CHANNEL = False
