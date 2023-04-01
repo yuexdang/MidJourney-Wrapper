@@ -1,3 +1,8 @@
+import os
+
+my_variable = os.environ.get('MY_VARIABLE')
+
+print(my_variable)
 #strings
 
 DAVINCI_TOKEN = [Token of Discord bot]
