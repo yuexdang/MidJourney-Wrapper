@@ -33,10 +33,10 @@ async def on_message_create(message):
             return
         if str(message.reference.resolved.author.id) != Globals.MID_JOURNEY_ID:
             await message.channel.send(
-                "丁师傅，回复不是这么用的")
+                "回复有问题，再来一次")
             await message.delete()
             return
-        await message.channel.send("丁真知道你想的图了")
+        await message.channel.send("丁真明白了")
         await message.delete()
 
 
@@ -68,11 +68,11 @@ async def mj_imagine(ctx, prompt: str):
     if response.status_code >= 400:
         print(response.txt)
         print(response.status_code)
-        await ctx.send("网卡了哦，丁真也不知道哦...")
+        await ctx.send("丁真也不知道哦，不如再发一次去问问丽丽...")
     else:
         print("作画：{}".format(prompt))
         await ctx.send(
-            "丁真正在画，再催就测你🐎....")
+            "丁真正在画")
 
 
 
