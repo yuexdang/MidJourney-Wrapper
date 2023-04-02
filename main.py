@@ -17,15 +17,10 @@ class MyHelpCommand(commands.DefaultHelpCommand):
         return f"{command}没有子命令。"
 
 
-@bot.event
-async def on_ready():
-    print(f"Logged in as {bot.user.name}")
 
-
-@bot.command(name="hello",description="绷不住了")
-async def hello(ctx, prompt="MotherFucker"):
-    await ctx.send('Hello!'+prompt)
-
+@bot.command(name='example', description='这是一个示例命令。')
+async def example(ctx):
+    await ctx.send('这是一个示例命令。')
 
 
 
