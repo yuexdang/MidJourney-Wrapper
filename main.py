@@ -85,11 +85,11 @@ async def mj_imagine(ctx, prompt: str):
 
 async def mj_variation(ctx, index: int, reset_target : bool =True):
     if (index <= 0 or index > 4):
-        await ctx.respond("丁真只能数到四")
+        await ctx.send("丁真只能数到四")
         return
 
     if Globals.targetID == "":
-        await ctx.respond(
+        await ctx.send(
             '你还没有给丁真说用哪个图'
         )
         return
@@ -102,10 +102,10 @@ async def mj_variation(ctx, index: int, reset_target : bool =True):
     if reset_target:
         Globals.targetID = ""
     if response.status_code >= 400:
-        await ctx.respond("再回复一次，丁真忙着回笼没看清")
+        await ctx.send("再回复一次，丁真忙着回笼没看清")
         return
 
-    await ctx.respond("丁真正在画")
+    await ctx.send("丁真正在画")
 
 
 
