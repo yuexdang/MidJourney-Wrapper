@@ -4,11 +4,11 @@ from discord.ext import commands
 import Globals
 from Salai import PassPromptToSelfBot, Upscale, MaxUpscale, Variation
 
-# intents = discord.Intents.all()
+intents = discord.Intents.all()
 
 bot = commands.Bot(
     command_prefix="/",
-#     intents=intents
+    intents=intents
 )
 
 
