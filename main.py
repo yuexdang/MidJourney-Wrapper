@@ -23,9 +23,9 @@ async def on_message_create(message):
 #     print("name:{},content:{}".format(message.author.username,message.content))
     if "dj" in message.content:
         try:
-            Globals.targetID = str(message.reference.message_id)
+            Globals.targetID = str(message_reference.message_id)
 	    #Get the hash from the url
-            Globals.targetHash = str((message.reference.resolved.attachments[0].url.split("_")[-1]).split(".")[0])
+            Globals.targetHash = str((message_reference.resolved.attachments[0].url.split("_")[-1]).split(".")[0])
         except:
             await message.channel.send(
                 "再回复一次，丁真忙着回笼没看清"
@@ -74,6 +74,38 @@ async def mj_imagine(ctx, prompt: str):
         print("作画：{}".format(prompt))
         await ctx.send(
             "丁真正在画")
+
+	
+# 调用variation
+@bot.command(
+    name = "yydz",
+    description = "狠狠的细分",
+)
+@interactions.option()
+
+async def mj_variation(ctx, index: int, reset_target : bool =True):
+    if (index <= 0 or index > 4):
+        await ctx.respond("丁真只能数到四")
+        return
+
+    if Globals.targetID == "":
+        await ctx.respond(
+            '你还没有给丁真说用哪个图'
+        )
+        return
+
+
+    if (Globals.USE_MESSAGED_CHANNEL):
+        Globals.CHANNEL_ID = ctx.channel.id
+        
+    response = Variation(index, Globals.targetID, Globals.targetHash)
+    if reset_target:
+        Globals.targetID = ""
+    if response.status_code >= 400:
+        await ctx.respond("再回复一次，丁真忙着回笼没看清")
+        return
+
+    await ctx.respond("丁真正在画")
 
 
 
