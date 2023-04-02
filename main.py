@@ -5,7 +5,7 @@ import Globals
 from Salai import PassPromptToSelfBot, Upscale, MaxUpscale, Variation
 
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(command_prefix="/",intents=intents)
 # bot = discord.Client(proxy="http://127.0.0.1:7890/")
 
 @bot.event
@@ -15,6 +15,7 @@ async def on_ready():
 
 @bot.command(description="Make DaVinci say something")
 async def hello(ctx, sentence: str):
+    print("Catch!")
     await ctx.respond(sentence)
 
 
