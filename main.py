@@ -70,9 +70,9 @@ async def mj_imagine(ctx, prompt: str):
         print(response.status_code)
         await ctx.send("网卡了哦，丁真也不知道哦...")
     else:
+        print("作画：{}".format(prompt))
         await ctx.send(
             "丁真正在画，再催就测你🐎....")
-
 
 
 
