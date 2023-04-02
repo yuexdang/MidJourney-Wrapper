@@ -1,13 +1,22 @@
-import interactions, os
+from Salai import PassPromptToSelfBot, Upscale, MaxUpscale, Variation
+import Globals
 
-bot = interactions.Client(token=os.environ.get('DAVINCI_TOKEN'))
+import interactions
+
+
+bot = interactions.Client(token=Globals.DAVINCI_TOKEN)
+
+
+@bot.event
+async def on_ready():
+    print(f"Logged in as {bot.user.name}")
 
 @bot.command(
-    name="my_first_command",
-    description="This is the first command I made!",
-    scope=os.environ.get('SERVER_ID'),
+    name = "Fuck",
+    description = "Holy shit It Works",
+    scope = Globals.SERVER_ID,
 )
-async def my_first_command(ctx: interactions.CommandContext):
-    await ctx.send("Hi there!")
+async def my_first_command(ctx: interactions.CommandContext, propmt: str = "SHIT CODE"):
+    await ctx.send("Fucking Good Guys about This {}".format(propmt))
 
 bot.start()
