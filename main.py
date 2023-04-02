@@ -18,8 +18,8 @@ async def on_ready():
 # 检测at了哪个图图
 @bot.event
 async def on_message_create(message):
-    print(message)
-    if message.content == "": return
+    if message.content == "" or message.username == "MidRelay" or message.username == "Midjourney Bot": return
+    print("name:{},content:{}".format(message.username,message.content))
     if "!15dj" in message.content and message.content[0] == '!':
         try:
             Globals.targetID = str(message.reference.message_id)
