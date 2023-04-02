@@ -14,7 +14,7 @@ async def on_ready():
 
 
 @bot.command(name="hello",description="绷不住了")
-async def hello(ctx, prompt):
+async def hello(ctx, prompt="MotherFucker"):
     await ctx.send('Hello!'+prompt)
 
 
@@ -27,7 +27,7 @@ async def mj_imagine(ctx, prompt):
     response = PassPromptToSelfBot(prompt)
     
     if response.status_code >= 400:
-        print(response.txt)
+        print(response.text)
         print(response.status_code)
         await ctx.send("Request has failed; please try later")
     else:
