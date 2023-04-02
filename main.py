@@ -104,27 +104,7 @@ async def mj_variation(ctx, index, reset_target=True):
 
 
 
-@bot.event
-async def on_message(message):
-    if message.content == "": return
-    if "$mj_target" in message.content and message.content[0] == '$':
-        try:
-            Globals.targetID = str(message.reference.message_id)
-	    #Get the hash from the url
-            Globals.targetHash = str((message.reference.resolved.attachments[0].url.split("_")[-1]).split(".")[0])
-        except:
-            await message.channel.send(
-                "Exception has occured, maybe you didn't reply to MidJourney message"
-            )
-            await message.delete()
-            return
-        if str(message.reference.resolved.author.id) != Globals.MID_JOURNEY_ID:
-            await message.channel.send(
-                "Use the command only when you reply to MidJourney")
-            await message.delete()
-            return
-        await message.channel.send("Done")
-        await message.delete()
+
 
 
 bot.run(Globals.DAVINCI_TOKEN)
