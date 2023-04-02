@@ -1,25 +1,13 @@
-import discord
-from discord.ext import commands
+import interactions
 
-import Globals
-from Salai import PassPromptToSelfBot, Upscale, MaxUpscale, Variation
+bot = interactions.Client(token="your_secret_bot_token")
 
-intents = discord.Intents.all()
-
-bot = commands.Bot(
-    command_prefix="/",
-    intents=intents
+@bot.command(
+    name="my_first_command",
+    description="This is the first command I made!",
+    scope=the_id_of_your_guild,
 )
+async def my_first_command(ctx: interactions.CommandContext):
+    await ctx.send("Hi there!")
 
-
-
-
-@bot.command(name='example', description='这是一个示例命令。')
-async def example(ctx):
-    await ctx.send('这是一个示例命令。')
-
-
-
-bot.help_command = commands.DefaultHelpCommand(no_category='Commands')
-
-bot.run(Globals.DAVINCI_TOKEN)
+bot.start()
