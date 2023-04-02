@@ -9,7 +9,7 @@ bot = interactions.Client(token=Globals.DAVINCI_TOKEN)
 
 @bot.event
 async def on_ready():
-    print(f"Logged in as {bot.user.name}")
+    print(f"Logged in Alright")
 
 @bot.command(
     name = "fuck",
