@@ -3,7 +3,7 @@ import interactions, os
 bot = interactions.Client(token=os.environ.get('DAVINCI_TOKEN'))
 
 @bot.command(
-    name="my_first_command yeap",
+    name="my_first_command",
     description="This is the first command I made!",
     scope=os.environ.get('CHANNEL_ID'),
 )
