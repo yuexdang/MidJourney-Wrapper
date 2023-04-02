@@ -18,6 +18,7 @@ async def on_ready():
 # 检测at了哪个图图
 @bot.event
 async def on_message(message):
+    print(message)
     if message.content == "": return
     if "!15dj" in message.content and message.content[0] == '!':
         try:
