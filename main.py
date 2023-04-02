@@ -5,8 +5,13 @@ import Globals
 from Salai import PassPromptToSelfBot, Upscale, MaxUpscale, Variation
 
 intents = discord.Intents.all()
+
+help_command = commands.DefaultHelpCommand(no_category='Commands')
+
+
 bot = commands.Bot(command_prefix="/",intents=intents)
 
+bot.help_command = help_command
 
 @bot.event
 async def on_ready():
