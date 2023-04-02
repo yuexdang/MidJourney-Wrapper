@@ -21,7 +21,7 @@ async def on_message_create(message):
     print(message)
     if message.content == "" or message.author.username == "MidRelay" or message.author.username == "Midjourney Bot" : return
 #     print("name:{},content:{}".format(message.author.username,message.content))
-    if "!15dj" in message.content and message.content[0] == '!':
+    if "dj" in message.content:
         try:
             Globals.targetID = str(message.reference.message_id)
 	    #Get the hash from the url
