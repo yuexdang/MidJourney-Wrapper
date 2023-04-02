@@ -1,6 +1,6 @@
-import interactions
+import interactions, os
 
-bot = interactions.Client(token="your_secret_bot_token")
+bot = interactions.Client(token=os.environ.get('DAVINCI_TOKEN'))
 
 @bot.command(
     name="my_first_command",
