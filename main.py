@@ -17,9 +17,9 @@ async def on_ready():
 
 # 检测at了哪个图图
 @bot.event
-async def on_message_update(message):
+async def on_message_create(message):
 #     print(message)
-    if message.content == "" and message.author.username == "MidRelay" or message.author.username == "Midjourney Bot" : return
+    if message.content == "" or message.author.username == "MidRelay" or message.author.username == "Midjourney Bot" : return
     print("name:{},content:{}".format(message.author.username,message.content))
     if "!15dj" in message.content and message.content[0] == '!':
         try:
