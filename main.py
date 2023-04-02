@@ -13,10 +13,9 @@ async def on_ready():
     print(f"Logged in as {bot.user.name}")
 
 
-@bot.command(name="hello",description="Make DaVinci say something")
-async def hello(ctx, sentence):
-    print("Catch!")
-    await ctx.send(sentence)
+@bot.command(name="hello",description="绷不住了")
+async def hello(ctx):
+    await ctx.send('Hello!')
 
 
 @bot.command(description="This command is a wrapper of MidJourneyAI")
