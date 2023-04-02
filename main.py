@@ -5,7 +5,7 @@ import interactions
 
 
 bot = interactions.Client(
-    token=Globals.DAVINCI_TOKEN，
+    token=Globals.DAVINCI_TOKEN,
     default_scope=Globals.SERVER_ID,
     )
 
