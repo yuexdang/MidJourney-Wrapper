@@ -15,6 +15,30 @@ async def on_ready():
     print(f"Logged in Alright")
 
 
+# 检测at了哪个图图
+@bot.event
+async def on_message(message):
+    if message.content == "": return
+    if "!15dj" in message.content and message.content[0] == '!':
+        try:
+            Globals.targetID = str(message.reference.message_id)
+	    #Get the hash from the url
+            Globals.targetHash = str((message.reference.resolved.attachments[0].url.split("_")[-1]).split(".")[0])
+        except:
+            await message.channel.send(
+                "再回复一次，丁真忙着回笼没看清"
+            )
+            await message.delete()
+            return
+        if str(message.reference.resolved.author.id) != Globals.MID_JOURNEY_ID:
+            await message.channel.send(
+                "丁师傅，回复不是这么用的")
+            await message.delete()
+            return
+        await message.channel.send("丁真知道你想的图了")
+        await message.delete()
+
+
 
 # 测试用的狗屎代码
 @bot.command(
@@ -43,10 +67,13 @@ async def mj_imagine(ctx, prompt: str):
     if response.status_code >= 400:
         print(response.txt)
         print(response.status_code)
-        await ctx.respond("Request has failed; please try later")
+        await ctx.send("网卡了哦，丁真也不知道哦...")
     else:
-        await ctx.respond(
-            "Your image is being prepared, please wait a moment...")
+        await ctx.send(
+            "丁真正在画，再催就测你🐎....")
+
+
+
 
 
 bot.start()
