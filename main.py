@@ -14,8 +14,8 @@ async def on_ready():
 
 
 @bot.command(name="hello",description="绷不住了")
-async def hello(ctx):
-    await ctx.send('Hello!')
+async def hello(ctx, prompt):
+    await ctx.send('Hello!'+prompt)
 
 
 @bot.command(description="This command is a wrapper of MidJourneyAI")
