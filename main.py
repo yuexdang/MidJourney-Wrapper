@@ -32,7 +32,10 @@ async def on_message_create(message):
     if message.content == "" or message.author.username == Globals.bot_name or message.author.username == "Midjourney Bot" : return
 
     try:
-        if "丁真" in message.content and "@" in message.referenced_message.content:
+        if "只因你太美" in message.content:
+            await message.reply("大半夜不睡觉答应某人埋的彩蛋，恭喜{}作为头号小黑子触发了这个彩蛋".format(message.author.username))
+            return
+        elif "丁真" in message.content and "@" in message.referenced_message.content:
             try:
                 if Globals.targetID:
                     if time.time() - Globals.userInfo['lastTime'] <= Globals.waitTime:
