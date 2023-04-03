@@ -40,7 +40,7 @@ async def on_message_create(message):
     if message.content == "" or message.author.username == bot_name or message.author.username == "Midjourney Bot" : return
 
 
-    if "丁真" in message.content and "@" in message.content:
+    if "丁真" in message.content and "@" in message.referenced_message.content:
         try:
             Globals.targetID = str(message.message_reference.message_id)
 	    #Get the hash from the url
