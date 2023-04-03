@@ -90,7 +90,7 @@ async def mj_imagine(ctx, prompt: str):
 	
 # 进行内容变体
 @bot.command(
-    name = "c",
+    name = "xf",
     description = "发送图片细分命令( U0 - U4 | V0 - V4 )",
     options=[
         interactions.Option(
@@ -104,7 +104,7 @@ async def mj_imagine(ctx, prompt: str):
             description="选择细分类型",
             type=interactions.OptionType.STRING,
             required=False,
-            choices=["U","V"],
+            # choices=["U","V"],
         ),
         interactions.Option(
             name="reset_target",
@@ -141,6 +141,7 @@ async def mj_variation(ctx, number: int, change_sign: str = "U", reset_target : 
         return
 
     await ctx.send("丁真正在画")
+
 
 
 bot.start()
