@@ -103,7 +103,7 @@ async def mj_imagine(ctx, prompt: str):
             name="change_sign",
             description="选择细分类型",
             type=interactions.OptionType.STRING,
-            required=False,
+            required=True,
             # choices=["U","V"],
         ),
         interactions.Option(
