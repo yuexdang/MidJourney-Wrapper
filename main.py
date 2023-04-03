@@ -99,13 +99,13 @@ async def mj_imagine(ctx, prompt: str):
             type=interactions.OptionType.INTEGER,
             required=True,
         ),
-#         interactions.Option(
-#             name="change_sign",
-#             description="选择细分类型",
-#             type=interactions.OptionType.STRING,
-#             choices=["U","V"],
-#             required=True,
-#         ),
+        interactions.Option(
+            name="change_sign",
+            description="选择细分类型",
+            type=interactions.OptionType.STRING,
+            required=False,
+            choices=["U","V"],
+        ),
         interactions.Option(
             name="reset_target",
             description="目标重置信号，默认命令执行后删除丁真目前定位的信息",
@@ -114,7 +114,7 @@ async def mj_imagine(ctx, prompt: str):
         ),
     ],
 )
-async def mj_variation(ctx, number: int, change_sign: str, reset_target : bool = True):
+async def mj_variation(ctx, number: int, change_sign: str = "U", reset_target : bool = True):
     if (number <= 0 or number > 4):
         await ctx.send("丁真只能数到四")
         return
