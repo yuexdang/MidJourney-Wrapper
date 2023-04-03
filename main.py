@@ -114,7 +114,32 @@ async def mj_imagine(ctx, prompt: str):
         ),
     ],
 )
-async def mj_variation(ctx, number: int, ChangeSign: str, reset_target : bool = True):
+@bot.command(
+    name = "c",
+    description = "发送图片细分命令( U0 - U4 | V0 - V4 )",
+    options=[
+        interactions.Option(
+            name="number",
+            description="选择需要细分图片",
+            type=interactions.OptionType.INTEGER,
+            required=True,
+        ),
+        interactions.Option(
+            name="change_sign",
+            description="选择细分类型",
+            type=interactions.OptionType.STRING,
+            choices=["U","V"],
+            required=True,
+        ),
+        interactions.Option(
+            name="reset_target",
+            description="目标重置信号，默认命令执行后删除丁真目前定位的信息",
+            type=interactions.OptionType.BOOLEAN,
+            required=False,
+        ),
+    ],
+)
+async def mj_variation(ctx, number: int, change_sign: str, reset_target : bool = True):
     if (number <= 0 or number > 4):
         await ctx.send("丁真只能数到四")
         return
@@ -126,9 +151,9 @@ async def mj_variation(ctx, number: int, ChangeSign: str, reset_target : bool = 
     if (Globals.USE_MESSAGED_CHANNEL):
         Globals.CHANNEL_ID = ctx.channel.id
     
-    if ChangeSign.upper() == "U":
+    if change_sign.upper() == "U":
         response = Upscale(number, Globals.targetID, Globals.targetHash)
-    elif ChangeSign.upper() == "V":
+    elif change_sign.upper() == "V":
         response = Variation(number, Globals.targetID, Globals.targetHash)
     else:
         await ctx.send("丁真无法理解你打算怎么处理这个图")
