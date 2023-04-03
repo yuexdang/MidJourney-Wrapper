@@ -36,7 +36,7 @@ async def on_message_create(message):
 
     if message.content == "" or message.author.username == "理塘丁真" or message.author.username == "Midjourney Bot" : return
 
-
+    print(message)
     if "丁真" in message.content:
         try:
             Globals.targetID = str(message.message_reference.message_id)
