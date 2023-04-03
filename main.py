@@ -104,8 +104,8 @@ async def mj_imagine(ctx, prompt: str):
     ],
 )
 
-async def mj_variation(ctx, prompt: int, reset_target : bool = True):
-    if (prompt <= 0 or prompt > 4):
+async def mj_variation(ctx, number: int, reset_target : bool = True):
+    if (number <= 0 or number > 4):
         await ctx.send("丁真只能数到四")
         return
 
@@ -117,7 +117,7 @@ async def mj_variation(ctx, prompt: int, reset_target : bool = True):
     if (Globals.USE_MESSAGED_CHANNEL):
         Globals.CHANNEL_ID = ctx.channel.id
         
-    response = Variation(prompt, Globals.targetID, Globals.targetHash)
+    response = Variation(number, Globals.targetID, Globals.targetHash)
     if reset_target:
         Globals.targetID = ""
     if response.status_code >= 400:
