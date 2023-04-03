@@ -3,16 +3,7 @@ import Globals
 
 import interactions
 
-bot_name = "理塘丁真"
-
-update_msg = f"""
-DandjourneyV1.2 正式上线！
-Github链接：https://github.com/yuexdang/MidJourney-Wrapper
-目前挂载机器人：""" + bot_name + """
-最近更新时间：2023-04-03
-更新内容：针对丁真的反馈提示进行优化;完善 /dj 指令
-谨防盗版，支持白嫖
-"""
+import time
 
 
 bot = interactions.Client(
@@ -36,17 +27,32 @@ async def on_message_create(message):
     if not Globals.HAS_RUN:
         print(f"丁真准备好了")
         Globals.HAS_RUN = True
-        await message.reply(update_msg)
+        await message.reply(Globals.update_msg)
 
-    if message.content == "" or message.author.username == bot_name or message.author.username == "Midjourney Bot" : return
+    if message.content == "" or message.author.username == Globals.bot_name or message.author.username == "Midjourney Bot" : return
 
     try:
         if "丁真" in message.content and "@" in message.referenced_message.content:
             try:
+                if Globals.targetID:
+                    if time.time() - Globals.userInfo['lastTime'] > Globals.waitTime:
+                        await message.reply("目前丁真正在为{}进行一眼鉴定，请于{}s后进行重试".format(
+                                                                                Globals.userInfo["userName"],
+                                                                                int(time.time() - Globals.userInfo['lastTime'] ),
+                                                                                ))
+                        return
                 Globals.targetID = str(message.message_reference.message_id)
             #Get the hash from the url
                 Globals.targetHash = str((message.referenced_message.attachments[0].url.split("_")[-1]).split(".")[0])
-                print("User:{},Content:{},MessageID:{}".format(message.author.username, message.content, message.message_reference.message_id))
+                print("User:{},Content:{},MessageID:{},KeyWords:{}".format(
+                    message.author.username, 
+                    message.content, 
+                    message.message_reference.message_id, 
+                    message.referenced_message.content.split("**")[1],
+                    ))
+                Globals.userInfo["userName"] = message.author.username
+                Globals.userInfo['lastTime'] = time.time()
+                
             except:
                 await message.reply("丁真抽嗨了，再发一次")
                 # await message.delete()
@@ -54,7 +60,10 @@ async def on_message_create(message):
             if str(message.referenced_message.author.id) != Globals.MID_JOURNEY_ID:
                 await message.reply("只能对Mid Journey说丁真")
                 return
-            await message.reply("丁真接收到{}的请求,正在针对关键词：{}进行细分".format( message.author.username, message.referenced_message.content.split("**")[1]))
+            await message.reply("丁真接收到{}的请求,已获取关键词为：{}的消息，并为用户保留{}s的时间用于键入下一步指令".format( message.author.username, 
+                                                                   message.referenced_message.content.split("**")[1],
+                                                                   Globals.waitTime
+                                                                   ))
             await message.delete()
     except AttributeError:
         pass
@@ -86,7 +95,7 @@ async def fuckcode(ctx: interactions.CommandContext, prompt: str = "SHIT CODE"):
     description = "关于这个程序",
 )
 async def info(ctx: interactions.CommandContext):
-    await ctx.send(update_msg)
+    await ctx.send(Globals.update_msg)
 
 
 
@@ -96,21 +105,7 @@ async def info(ctx: interactions.CommandContext):
     description = "怎么用",
 )
 async def usage(ctx: interactions.CommandContext):
-    await ctx.send(
-    '''
-        丁真珍珠目前支持图片的生成与细分，不想支持blend功能，info功能暂时也不打算集成上去
-
-        指令：
-        /fuck 测试用的没什么用
-        /dj 等价/imagine
-        /xf 细分图片
-	
-        如何进行细分：
-        1.先找到你想要进行操作的Midjourney消息，并回复这条消息：丁真
-        2.丁真删了你的消息并回复丁真知道了即为成功，失败的话请重试
-        3.输入/xf 调整需求后发送指令即可
-    '''
-)
+    await ctx.send(Globals.help_info)
     
 
 
@@ -211,7 +206,7 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
             
         print("作画：{}".format(prompt))
         await ctx.send(
-            "丁真正在画{}".format(prompt))
+            "丁真正在画:{}".format(prompt))
 
 	
 
@@ -266,6 +261,9 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
 
     if reset_target:
         Globals.targetID = ""
+        Globals.userInfo = { "userName":"", "lastTime" : 0, }
+    else:
+        Globals.userInfo["lastTime"] = time.time()
     if response.status_code >= 400:
         await ctx.send("再回复一次，丁真忙着回笼没看清")
         return
