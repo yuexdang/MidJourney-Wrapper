@@ -128,7 +128,7 @@ async def mj_variation(ctx, number: int, change_sign: str = "U", reset_target : 
         return
 
     if (Globals.USE_MESSAGED_CHANNEL):
-        Globals.CHANNEL_ID = ctx.channel.id
+        Globals.CHANNEL_ID = str(ctx.channel.id)
     
     if change_sign.upper() == "U":
         response = Upscale(number, Globals.targetID, Globals.targetHash)
@@ -146,34 +146,6 @@ async def mj_variation(ctx, number: int, change_sign: str = "U", reset_target : 
 
     await ctx.send("丁真正在画")
 
-
-
-# test
-@bot.command(
-    name="test_command",
-    description="Test command",
-    options=[
-        interactions.Option(
-            type=interactions.OptionType.STRING,
-            name="test_option",
-            description="test",
-            required=True,
-            autocomplete=True,
-        )
-    ]
-)
-async def test_command(ctx: interactions.CommandContext, test_option: str):
-    await ctx.send(test_option)
-
-@test_command.autocomplete("test_option")
-async def test_autocomplete(ctx: interactions.CommandContext, user_input: str = ""):
-    items = ["laptop", "smartphone", "mouse", "keyboard", "monitor", "microphone", "headphone", "headset"]
-    # add item to the choices list only if the user_input is in the item name
-    choices = [
-        interactions.Choice(name=item, value=item) for item in items if user_input in item 
-    ] 
-    await ctx.populate(choices)
- 
 
 
 bot.start()
