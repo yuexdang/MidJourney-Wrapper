@@ -139,9 +139,7 @@ async def usage(ctx: interactions.CommandContext):
         interactions.Option(
             name="quality",
             description="图片质量（ 0.25 - 2.0 ）",
-            type=interactions.OptionType.FLOAT,
-            max_value=2.0,
-            min_value=0.25,
+            type=interactions.OptionType.STRING,
             required=False,
         ),
         interactions.Option(
@@ -170,7 +168,7 @@ async def usage(ctx: interactions.CommandContext):
         ),
     ],
 )
-async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, quality: float = 1.0, stylize: int = 2000, seed: int = 5294967295, chaos: int = 0):
+async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, quality: str = "1.0", stylize: int = 2000, seed: int = 5294967295, chaos: int = 0):
 
     if (Globals.USE_MESSAGED_CHANNEL):
         # print(ctx.channel)
@@ -183,7 +181,21 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
         print(response.status_code)
         await ctx.send("丁真也不知道哦，再发一次去问问丽丽...")
     else:
-        prompt = prompt + "--ar {} --v {} --quality {} --chaos {}".format(area, versions, quality, stylize, seed, chaos)
+
+        prompt = prompt + "--v {} --chaos {}".format(versions, chaos)
+
+        if float(quality) > 0.25 and float(quality) < 2.0:
+            prompt = prompt + " --quality {}".format(quality)
+        
+        area_num = int(area.split(":")[0])/int(area.split(":")[1]) \
+                    if \
+                        area.count(":") == 1 and \
+                        len(area.split(":")) == 2 and \
+                        all(_area.isdigit() for _area in area.split(":")) \
+                    else 1
+    
+        if float(area_num) > 0.5 and float(area_num) < 2.0:
+            prompt = prompt + " --ar {}".format(area)
         
         if seed > 0 and seed < 4294967295:
             prompt = prompt + " --seed {}".format(seed)
