@@ -1,7 +1,7 @@
 # MidJourney-Wrapper（Yuexdang翻译版）
 
 ## 代码来源
-作者：[Wildric-Auric](https://github.com/Wildric-Auric)\
+作者：[Wildric-Auric](https://github.com/Wildric-Auric) | [yuexdang](https://github.com/yuexdang/)\
 原始版本：[MidJourney-Wrapper](https://github.com/Wildric-Auric/MidJourney-Wrapper)
 
 ## 目前现状
