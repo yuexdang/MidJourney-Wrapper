@@ -30,7 +30,7 @@ async def on_message_create(message):
             print("User:{},Content:{},MessageID:{}".format(message.author.username, message.content, message.message_reference.message_id))
         except:
             await message.reply("再回复一次，丁真忙着回笼没看清")
-            await message.delete()
+            # await message.delete()
             return
         if str(message.referenced_message.author.id) != Globals.MID_JOURNEY_ID:
             await message.reply("只能对Mid Journey说丁真")
@@ -103,8 +103,11 @@ async def mj_imagine(ctx, prompt: str):
             name="change_sign",
             description="选择细分类型",
             type=interactions.OptionType.STRING,
-            required=True,
-            # choices=["U","V"],
+            required=False,
+            choices = [
+                interactions.Choice(name="U:继承细分", value="U"),
+                interactions.Choice(name="V:变体细分", value="V"),
+            ],
         ),
         interactions.Option(
             name="reset_target",
