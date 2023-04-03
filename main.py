@@ -39,23 +39,26 @@ async def on_message_create(message):
 
     if message.content == "" or message.author.username == bot_name or message.author.username == "Midjourney Bot" : return
 
-
-    if "丁真" in message.content and "@" in message.referenced_message.content:
-        try:
-            Globals.targetID = str(message.message_reference.message_id)
-	    #Get the hash from the url
-            Globals.targetHash = str((message.referenced_message.attachments[0].url.split("_")[-1]).split(".")[0])
-            print("User:{},Content:{},MessageID:{}".format(message.author.username, message.content, message.message_reference.message_id))
-        except:
-            await message.reply("丁真抽嗨了，再发一次")
-            # await message.delete()
-            return
-        if str(message.referenced_message.author.id) != Globals.MID_JOURNEY_ID:
-            await message.reply("只能对Mid Journey说丁真")
-            return
-        await message.reply("丁真接收到{}的请求,正在针对关键词：{}进行细分".format( message.author.username, message.referenced_message.content.split("**")[1]))
-        await message.delete()
-
+    try:
+        if "丁真" in message.content and "@" in message.referenced_message.content:
+            try:
+                Globals.targetID = str(message.message_reference.message_id)
+            #Get the hash from the url
+                Globals.targetHash = str((message.referenced_message.attachments[0].url.split("_")[-1]).split(".")[0])
+                print("User:{},Content:{},MessageID:{}".format(message.author.username, message.content, message.message_reference.message_id))
+            except:
+                await message.reply("丁真抽嗨了，再发一次")
+                # await message.delete()
+                return
+            if str(message.referenced_message.author.id) != Globals.MID_JOURNEY_ID:
+                await message.reply("只能对Mid Journey说丁真")
+                return
+            await message.reply("丁真接收到{}的请求,正在针对关键词：{}进行细分".format( message.author.username, message.referenced_message.content.split("**")[1]))
+            await message.delete()
+    except AttributeError:
+        pass
+    except Exception:
+        print("消息监听出错：", Exception)
 
 
 # 测试用的狗屎代码
