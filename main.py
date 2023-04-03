@@ -143,5 +143,4 @@ async def mj_variation(ctx, number: int, ChangeSign: str, reset_target : bool = 
     await ctx.send("丁真正在画")
 
 
-
-bot.run(Globals.DAVINCI_TOKEN)
+bot.start()
