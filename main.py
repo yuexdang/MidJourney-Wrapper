@@ -15,9 +15,16 @@ bot = interactions.Client(
 
 # 登录状态确认
 @bot.event
-async def on_ready(ctx: interactions.CommandContext):
+async def on_ready():
     print(f"丁真来咯")
-    await ctx.send(
+
+
+
+# 检测at了哪个图图
+@bot.event
+async def on_message_create(message):
+    if not Globals.HAS_RUN:
+        await message.reply(
         '''
             DandjourneyV1.0 正式上线！\n
             Github链接：https://github.com/yuexdang/MidJourney-Wrapper\n
@@ -25,16 +32,12 @@ async def on_ready(ctx: interactions.CommandContext):
             最近更新时间：{}
             谨防盗版，支持白嫖
         '''.format(
-            ctx.author,
-            "2023-04-03"
-        )
-                   )
+                    "理塘·丁真",
+                    "2023-04-03"
+                )
+            )
+        Globals.HAS_RUN = True
 
-
-
-# 检测at了哪个图图
-@bot.event
-async def on_message_create(message):
     if message.content == "" or message.author.username == "MidRelay" or message.author.username == "Midjourney Bot" : return
 
 
@@ -62,15 +65,36 @@ async def on_message_create(message):
     description = "测试用的捏",
     options=[
         interactions.Option(
-            name="propmt",
+            name="prompt",
             description="随便输入一个内容",
             type=interactions.OptionType.STRING,
             required=False,
         ),
     ],
 )
-async def my_first_command(ctx: interactions.CommandContext, propmt: str = "SHIT CODE"):
-    await ctx.send("Fucking Good Guys about This {}".format(propmt))
+async def fuckcode(ctx: interactions.CommandContext, prompt: str = "SHIT CODE"):
+    await ctx.send("Fucking Good Guys about This {}".format(prompt))
+
+
+
+# 关于
+@bot.command(
+    name = "info",
+    description = "关于这个程序",
+)
+async def info(ctx: interactions.CommandContext):
+    await ctx.send(
+    '''
+        DandjourneyV1.0 正式上线！\n
+        Github链接：https://github.com/yuexdang/MidJourney-Wrapper\n
+        目前挂载机器人：{}\n
+        最近更新时间：{}
+        谨防盗版，支持白嫖
+    '''.format(
+                ctx.author,
+                "2023-04-03"
+            )
+)
 
 
 
@@ -87,7 +111,7 @@ async def my_first_command(ctx: interactions.CommandContext, propmt: str = "SHIT
         ),
     ],
 )
-async def mj_imagine(ctx, prompt: str):
+async def dj_imagine(ctx, prompt: str):
 
     if (Globals.USE_MESSAGED_CHANNEL):
         # print(ctx.channel)
@@ -135,7 +159,7 @@ async def mj_imagine(ctx, prompt: str):
         ),
     ],
 )
-async def mj_variation(ctx, number: int, change_sign: str = "U", reset_target : bool = True):
+async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target : bool = True):
     if (number <= 0 or number > 4):
         await ctx.send("丁真只能数到四")
         return
