@@ -40,14 +40,14 @@ async def on_message_create(message):
     if message.content == "" or message.author.username == bot_name or message.author.username == "Midjourney Bot" : return
 
 
-    if "丁真" in message.content:
+    if "丁真" in message.content and "@" in message.content:
         try:
             Globals.targetID = str(message.message_reference.message_id)
 	    #Get the hash from the url
             Globals.targetHash = str((message.referenced_message.attachments[0].url.split("_")[-1]).split(".")[0])
             print("User:{},Content:{},MessageID:{}".format(message.author.username, message.content, message.message_reference.message_id))
         except:
-            await message.reply("再回复一次，丁真忙着回笼没看清")
+            await message.reply("丁真抽嗨了，再发一次")
             # await message.delete()
             return
         if str(message.referenced_message.author.id) != Globals.MID_JOURNEY_ID:
