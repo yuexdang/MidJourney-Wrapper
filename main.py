@@ -4,16 +4,32 @@ import Globals
 import interactions
 
 
+
 bot = interactions.Client(
     token=Globals.DAVINCI_TOKEN,
     default_scope=Globals.SERVER_ID,
     intents=interactions.Intents.DEFAULT | interactions.Intents.GUILD_MESSAGE_CONTENT,
     )
 
+
+
 # 登录状态确认
 @bot.event
-async def on_ready():
-    print(f"Logged in Alright")
+async def on_ready(ctx: interactions.CommandContext):
+    print(f"丁真来咯")
+    await ctx.send(
+        '''
+            DandjourneyV1.0 正式上线！\n
+            Github链接：https://github.com/yuexdang/MidJourney-Wrapper\n
+            目前挂载机器人：{}\n
+            最近更新时间：{}
+            谨防盗版，支持白嫖
+        '''.format(
+            ctx.author,
+            "2023-04-03"
+        )
+                   )
+
 
 
 # 检测at了哪个图图
@@ -74,7 +90,7 @@ async def my_first_command(ctx: interactions.CommandContext, propmt: str = "SHIT
 async def mj_imagine(ctx, prompt: str):
 
     if (Globals.USE_MESSAGED_CHANNEL):
-#         print(ctx.channel)
+        # print(ctx.channel)
         Globals.CHANNEL_ID = str(ctx.channel.id)
 
     response = PassPromptToSelfBot(prompt)
@@ -89,6 +105,7 @@ async def mj_imagine(ctx, prompt: str):
             "丁真正在画")
 
 	
+
 # 进行内容变体
 @bot.command(
     name = "xf",
@@ -145,7 +162,6 @@ async def mj_variation(ctx, number: int, change_sign: str = "U", reset_target : 
         return
 
     await ctx.send("丁真正在画")
-
 
 
 bot.start()
