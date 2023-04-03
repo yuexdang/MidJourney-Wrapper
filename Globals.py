@@ -10,7 +10,7 @@ SALAI_TOKEN = os.environ.get('SALAI_TOKEN')
 
 CHANNEL_ID = os.environ.get('CHANNEL_ID')
 
-waitTime = os.environ.get('WAIT_TIME')
+waitTime = float(os.environ.get('WAIT_TIME'))
 
 #boolean
 USE_MESSAGED_CHANNEL = True if(os.environ.get('CHANNEL_SIGN')=="True") else False
