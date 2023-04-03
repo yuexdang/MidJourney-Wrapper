@@ -4,7 +4,7 @@ import Globals
 import interactions
 
 update_msg = f"""
-DandjourneyV1.0 正式上线！
+DandjourneyV1.1 正式上线！
 Github链接：https://github.com/yuexdang/MidJourney-Wrapper
 目前挂载机器人：理塘 · 丁真 · 珍珠
 最近更新时间：2023-04-03
