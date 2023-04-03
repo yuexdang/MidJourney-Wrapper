@@ -28,7 +28,7 @@ async def on_message_create(message):
         print(f"丁真准备好了")
         Globals.HAS_RUN = True
         await message.reply(Globals.update_msg)
-    print(Globals.targetID,Globals.userInfo)
+
     if message.content == "" or message.author.username == Globals.bot_name or message.author.username == "Midjourney Bot" : return
 
     try:
