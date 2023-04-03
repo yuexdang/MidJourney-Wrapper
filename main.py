@@ -28,17 +28,17 @@ async def on_message_create(message):
 	    #Get the hash from the url
             Globals.targetHash = str((message.referenced_message.attachments[0].url.split("_")[-1]).split(".")[0])
         except:
-            await message.send(
+            await message.channel.send(
                 "再回复一次，丁真忙着回笼没看清"
             )
             await message.delete()
             return
         if str(message.referenced_message.author.id) != Globals.MID_JOURNEY_ID:
-            await message.send(
+            await message.channel.send(
                 "只能对Mid Journey说丁真")
             await message.delete()
             return
-        await message.send("丁真明白了")
+        await message.channel.send("丁真明白了")
         await message.delete()
 
 
