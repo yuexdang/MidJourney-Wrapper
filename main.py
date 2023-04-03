@@ -10,6 +10,7 @@ DandjourneyV1.2 正式上线！
 Github链接：https://github.com/yuexdang/MidJourney-Wrapper
 目前挂载机器人：""" + bot_name + """
 最近更新时间：2023-04-03
+更新内容：针对丁真的反馈提示进行优化;完善 /dj 指令
 谨防盗版，支持白嫖
 """
 
@@ -109,6 +110,7 @@ async def usage(ctx: interactions.CommandContext):
     
 
 
+
 # 调用imagine
 @bot.command(
     name = "dj",
@@ -120,9 +122,55 @@ async def usage(ctx: interactions.CommandContext):
             type=interactions.OptionType.STRING,
             required=True,
         ),
+        interactions.Option(
+            name="area",
+            description="图像比例( 1：2 ~ 2：1 )",
+            type=interactions.OptionType.STRING,
+            required=False,
+        ),
+        interactions.Option(
+            name="versions",
+            description="MidJourney使用版本( 1 - 5 )",
+            type=interactions.OptionType.INTEGER,
+            max_value=5,
+            min_value=1,
+            required=False,
+        ),
+        interactions.Option(
+            name="quality",
+            description="图片质量（ 0.25 - 2.0 ）",
+            type=interactions.OptionType.FLOAT,
+            max_value=2.0,
+            min_value=0.25,
+            required=False,
+        ),
+        interactions.Option(
+            name="stylize",
+            description="图片参数（ 0 - 1000 ）",
+            type=interactions.OptionType.INTEGER,
+            max_value=1000,
+            min_value=0,
+            required=False,
+        ),
+        interactions.Option(
+            name="seed",
+            description="种子",
+            type=interactions.OptionType.INTEGER,
+            max_value=4294967295,
+            min_value=0,
+            required=False,
+        ),
+        interactions.Option(
+            name="chaos",
+            description="设置四张图像的差异化",
+            type=interactions.OptionType.INTEGER,
+            max_value=100,
+            min_value=0,
+            required=False,
+        ),
     ],
 )
-async def dj_imagine(ctx, prompt: str):
+async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, quality: float = 1.0, stylize: int = 2000, seed: int = 5294967295, chaos: int = 0):
 
     if (Globals.USE_MESSAGED_CHANNEL):
         # print(ctx.channel)
@@ -135,9 +183,17 @@ async def dj_imagine(ctx, prompt: str):
         print(response.status_code)
         await ctx.send("丁真也不知道哦，再发一次去问问丽丽...")
     else:
+        prompt = prompt + "--ar {} --v {} --quality {} --chaos {}".format(area, versions, quality, stylize, seed, chaos)
+        
+        if seed > 0 and seed < 4294967295:
+            prompt = prompt + " --seed {}".format(seed)
+        
+        if stylize > 0 and stylize < 1000:
+            prompt = prompt + " --stylize {}".format(stylize)
+            
         print("作画：{}".format(prompt))
         await ctx.send(
-            "丁真正在画")
+            "丁真正在画{}".format(prompt))
 
 	
 
@@ -196,7 +252,7 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
         await ctx.send("再回复一次，丁真忙着回笼没看清")
         return
 
-    await ctx.send("丁真正在画")
+    await ctx.send("丁真正在进行细分")
 
 
 bot.start()
