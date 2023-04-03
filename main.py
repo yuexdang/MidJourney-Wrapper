@@ -38,7 +38,7 @@ async def on_message_create(message):
                     if time.time() - Globals.userInfo['lastTime'] <= Globals.waitTime:
                         await message.reply("目前丁真正在为{}进行一眼鉴定，请于{}s后进行重试".format(
                                                                                 Globals.userInfo["userName"],
-                                                                                int(time.time() - Globals.userInfo['lastTime'] ),
+                                                                                Globals.waitTime - int( time.time() - Globals.userInfo['lastTime'] ),
                                                                                 ))
                         return
                 Globals.targetID = str(message.message_reference.message_id)
