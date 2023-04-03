@@ -34,7 +34,7 @@ async def on_message_create(message):
         await message.reply(update_msg)
         Globals.HAS_RUN = True
 
-    if message.content == "" or message.author.username == "MidRelay" or message.author.username == "Midjourney Bot" : return
+    if message.content == "" or message.author.username == "理塘丁真" or message.author.username == "Midjourney Bot" : return
 
 
     if "丁真" in message.content:
