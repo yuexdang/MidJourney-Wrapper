@@ -35,7 +35,7 @@ async def on_message_create(message):
         if "丁真" in message.content and "@" in message.referenced_message.content:
             try:
                 if Globals.targetID:
-                    if time.time() - Globals.userInfo['lastTime'] > Globals.waitTime:
+                    if time.time() - Globals.userInfo['lastTime'] <= Globals.waitTime:
                         await message.reply("目前丁真正在为{}进行一眼鉴定，请于{}s后进行重试".format(
                                                                                 Globals.userInfo["userName"],
                                                                                 int(time.time() - Globals.userInfo['lastTime'] ),
