@@ -91,7 +91,7 @@ async def info(ctx: interactions.CommandContext):
         最近更新时间：{}
         谨防盗版，支持白嫖
     '''.format(
-                ctx.author,
+                "理塘·丁真",
                 "2023-04-03"
             )
 )
