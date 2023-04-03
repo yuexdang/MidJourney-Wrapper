@@ -100,31 +100,6 @@ async def mj_imagine(ctx, prompt: str):
             required=True,
         ),
         interactions.Option(
-            name="ChangeSign",
-            description="选择细分类型",
-            type=interactions.OptionType.STRING,
-#             choices=["U","V"],
-            required=True,
-        ),
-        interactions.Option(
-            name="reset_target",
-            description="目标重置信号，默认命令执行后删除丁真目前定位的信息",
-            type=interactions.OptionType.BOOLEAN,
-            required=False,
-        ),
-    ],
-)
-@bot.command(
-    name = "c",
-    description = "发送图片细分命令( U0 - U4 | V0 - V4 )",
-    options=[
-        interactions.Option(
-            name="number",
-            description="选择需要细分图片",
-            type=interactions.OptionType.INTEGER,
-            required=True,
-        ),
-        interactions.Option(
             name="change_sign",
             description="选择细分类型",
             type=interactions.OptionType.STRING,
