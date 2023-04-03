@@ -186,8 +186,10 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
                     all(_area.isdigit() for _area in area.split(":")) \
                 else 1
 
-    if float(area_num) > 0.5 and float(area_num) < 2.0:
+    if float(area_num) > 0.5 and float(area_num) < 2.0 and float(area_num) != 1.0:
         prompt = prompt + " --ar {}".format(area)
+    elif float(area_num) == 1.0:
+        prompt = prompt + " --ar {}".format("1:1")
     
     if seed > 0 and seed < 4294967295:
         prompt = prompt + " --seed {}".format(seed)
