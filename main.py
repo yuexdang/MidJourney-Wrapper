@@ -174,6 +174,27 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
         # print(ctx.channel)
         Globals.CHANNEL_ID = str(ctx.channel.id)
 
+    prompt = prompt + "--v {} --chaos {}".format(versions, chaos)
+
+    if float(quality) > 0.25 and float(quality) < 2.0:
+        prompt = prompt + " --quality {}".format(quality)
+    
+    area_num = int(area.split(":")[0])/int(area.split(":")[1]) \
+                if \
+                    area.count(":") == 1 and \
+                    len(area.split(":")) == 2 and \
+                    all(_area.isdigit() for _area in area.split(":")) \
+                else 1
+
+    if float(area_num) > 0.5 and float(area_num) < 2.0:
+        prompt = prompt + " --ar {}".format(area)
+    
+    if seed > 0 and seed < 4294967295:
+        prompt = prompt + " --seed {}".format(seed)
+    
+    if stylize > 0 and stylize < 1000:
+        prompt = prompt + " --stylize {}".format(stylize)
+
     response = PassPromptToSelfBot(prompt)
     
     if response.status_code >= 400:
@@ -181,27 +202,6 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
         print(response.status_code)
         await ctx.send("丁真也不知道哦，再发一次去问问丽丽...")
     else:
-
-        prompt = prompt + "--v {} --chaos {}".format(versions, chaos)
-
-        if float(quality) > 0.25 and float(quality) < 2.0:
-            prompt = prompt + " --quality {}".format(quality)
-        
-        area_num = int(area.split(":")[0])/int(area.split(":")[1]) \
-                    if \
-                        area.count(":") == 1 and \
-                        len(area.split(":")) == 2 and \
-                        all(_area.isdigit() for _area in area.split(":")) \
-                    else 1
-    
-        if float(area_num) > 0.5 and float(area_num) < 2.0:
-            prompt = prompt + " --ar {}".format(area)
-        
-        if seed > 0 and seed < 4294967295:
-            prompt = prompt + " --seed {}".format(seed)
-        
-        if stylize > 0 and stylize < 1000:
-            prompt = prompt + " --stylize {}".format(stylize)
             
         print("作画：{}".format(prompt))
         await ctx.send(
