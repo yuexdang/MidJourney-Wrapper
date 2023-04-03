@@ -75,7 +75,7 @@ async def mj_imagine(ctx, prompt: str):
 
     if (Globals.USE_MESSAGED_CHANNEL):
         print(ctx.channel)
-	print(ctx.channel.id)
+        print(ctx.channel.id)
         # Globals.CHANNEL_ID = ctx.channel.id
 
     response = PassPromptToSelfBot(prompt)
