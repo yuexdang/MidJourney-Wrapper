@@ -3,10 +3,12 @@ import Globals
 
 import interactions
 
+bot_name = "理塘丁真"
+
 update_msg = f"""
-DandjourneyV1.1 正式上线！
+DandjourneyV1.2 正式上线！
 Github链接：https://github.com/yuexdang/MidJourney-Wrapper
-目前挂载机器人：理塘 · 丁真 · 珍珠
+目前挂载机器人：""" + bot_name + """
 最近更新时间：2023-04-03
 谨防盗版，支持白嫖
 """
@@ -34,9 +36,9 @@ async def on_message_create(message):
         await message.reply(update_msg)
         Globals.HAS_RUN = True
 
-    if message.content == "" or message.author.username == "理塘丁真" or message.author.username == "Midjourney Bot" : return
+    if message.content == "" or message.author.username == bot_name or message.author.username == "Midjourney Bot" : return
 
-    print(message)
+
     if "丁真" in message.content:
         try:
             Globals.targetID = str(message.message_reference.message_id)
@@ -50,7 +52,7 @@ async def on_message_create(message):
         if str(message.referenced_message.author.id) != Globals.MID_JOURNEY_ID:
             await message.reply("只能对Mid Journey说丁真")
             return
-        await message.reply("丁真明白了")
+        await message.reply("丁真接收到{}的请求,正在针对关键词：{}进行细分".format( message.author.username, message.referenced_message.content.split("**")[1]))
         await message.delete()
 
 
