@@ -7,6 +7,7 @@ import interactions
 bot = interactions.Client(
     token=Globals.DAVINCI_TOKEN,
     default_scope=Globals.SERVER_ID,
+    intents=interactions.Intents.DEFAULT | interactions.Intents.GUILD_MESSAGE_CONTENT,
     )
 
 # 登录状态确认
