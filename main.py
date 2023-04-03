@@ -34,8 +34,9 @@ async def on_ready():
 @bot.event
 async def on_message_create(message):
     if not Globals.HAS_RUN:
-        await message.reply(update_msg)
+        print(f"丁真准备好了")
         Globals.HAS_RUN = True
+        await message.reply(update_msg)
 
     if message.content == "" or message.author.username == bot_name or message.author.username == "Midjourney Bot" : return
 
