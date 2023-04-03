@@ -28,17 +28,17 @@ async def on_message_create(message):
 	    #Get the hash from the url
             Globals.targetHash = str((message.referenced_message.attachments[0].url.split("_")[-1]).split(".")[0])
         except:
-            await message.reply(
+            await message.send(
                 "再回复一次，丁真忙着回笼没看清"
             )
             await message.delete()
             return
         if str(message.referenced_message.author.id) != Globals.MID_JOURNEY_ID:
-            await message.reply(
+            await message.send(
                 "只能对Mid Journey说丁真")
             await message.delete()
             return
-        await message.reply("丁真明白了")
+        await message.send("丁真明白了")
         await message.delete()
 
 
@@ -57,9 +57,16 @@ async def my_first_command(ctx: interactions.CommandContext, propmt: str = "SHIT
 # 调用imagine
 @bot.command(
     name = "dj",
-    description = "问问远处的机器人吧家人们",
+    description = "问问远处的丁真吧家人们",
+    options=[
+        interactions.Option(
+            name="prompt",
+            description="图片参数",
+            type=interactions.OptionType.STRING,
+            required=True,
+        ),
+    ],
 )
-@interactions.option()
 async def mj_imagine(ctx, prompt: str):
 
     if (Globals.USE_MESSAGED_CHANNEL):
@@ -81,25 +88,36 @@ async def mj_imagine(ctx, prompt: str):
 @bot.command(
     name = "yydz",
     description = "狠狠的细分",
+    options=[
+        interactions.Option(
+            name="number",
+            description="选取数字",
+            type=interactions.OptionType.INTEGER,
+            required=True,
+        ),
+        interactions.Option(
+            name="reset_target",
+            description="我不好说",
+            type=interactions.OptionType.BOOLEAN,
+            required=False,
+        ),
+    ],
 )
-@interactions.option()
 
-async def mj_variation(ctx, CheckNum: int, reset_target : bool =True):
-    if (CheckNum <= 0 or CheckNum > 4):
+async def mj_variation(ctx, prompt: int, reset_target : bool = True):
+    if (prompt <= 0 or prompt > 4):
         await ctx.send("丁真只能数到四")
         return
 
     if Globals.targetID == "":
-        await ctx.send(
-            '你还没有给丁真说用哪个图'
-        )
+        await ctx.send('你还没有给丁真说用哪个图')
         return
 
 
     if (Globals.USE_MESSAGED_CHANNEL):
         Globals.CHANNEL_ID = ctx.channel.id
         
-    response = Variation(CheckNum, Globals.targetID, Globals.targetHash)
+    response = Variation(prompt, Globals.targetID, Globals.targetHash)
     if reset_target:
         Globals.targetID = ""
     if response.status_code >= 400:
@@ -107,7 +125,6 @@ async def mj_variation(ctx, CheckNum: int, reset_target : bool =True):
         return
 
     await ctx.send("丁真正在画")
-
 
 
 
