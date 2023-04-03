@@ -268,7 +268,9 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
         await ctx.send("再回复一次，丁真忙着回笼没看清")
         return
 
-    await ctx.send("丁真正在进行细分")
+    await ctx.send("丁真正在对{}的需求进行细分".format(
+                                                Globals.userInfo["userName"],
+    ))
 
 
 bot.start()
