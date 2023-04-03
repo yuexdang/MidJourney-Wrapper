@@ -22,23 +22,23 @@ async def on_message_create(message):
     print(message)
     if message.content == "" or message.author.username == "MidRelay" or message.author.username == "Midjourney Bot" : return
 #     print("name:{},content:{}".format(message.author.username,message.content))
-    if "dj" in message.content:
+    if "丁真" in message.content:
         try:
-            Globals.targetID = str(message_reference.message_id)
+            Globals.targetID = str(message.message_reference.message_id)
 	    #Get the hash from the url
-            Globals.targetHash = str((message_reference.resolved.attachments[0].url.split("_")[-1]).split(".")[0])
+            Globals.targetHash = str((message.referenced_message.attachments[0].url.split("_")[-1]).split(".")[0])
         except:
-            await message.channel.send(
+            await message.send(
                 "再回复一次，丁真忙着回笼没看清"
             )
             await message.delete()
             return
-        if str(message.reference.resolved.author.id) != Globals.MID_JOURNEY_ID:
-            await message.channel.send(
-                "回复有问题，再来一次")
+        if str(message.referenced_message.author.id) != Globals.MID_JOURNEY_ID:
+            await message.send(
+                "只能对Mid Journey说丁真")
             await message.delete()
             return
-        await message.channel.send("丁真明白了")
+        await message.send("丁真明白了")
         await message.delete()
 
 
