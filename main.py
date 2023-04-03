@@ -3,6 +3,8 @@ import Globals
 
 import interactions
 
+bot_name = "理塘 · 丁真 · 珍珠"
+update_time = "2023-04-03"
 
 
 bot = interactions.Client(
@@ -25,16 +27,13 @@ async def on_ready():
 async def on_message_create(message):
     if not Globals.HAS_RUN:
         await message.reply(
-        '''
+        '''\n
             DandjourneyV1.0 正式上线！\n
             Github链接：https://github.com/yuexdang/MidJourney-Wrapper\n
             目前挂载机器人：{}\n
-            最近更新时间：{}
-            谨防盗版，支持白嫖
-        '''.format(
-                    "理塘·丁真",
-                    "2023-04-03"
-                )
+            最近更新时间：{}\n
+            谨防盗版，支持白嫖\n
+        '''.format(bot_name, update_time)
             )
         Globals.HAS_RUN = True
 
@@ -84,18 +83,40 @@ async def fuckcode(ctx: interactions.CommandContext, prompt: str = "SHIT CODE"):
 )
 async def info(ctx: interactions.CommandContext):
     await ctx.send(
-    '''
+    '''\n
         DandjourneyV1.0 正式上线！\n
         Github链接：https://github.com/yuexdang/MidJourney-Wrapper\n
         目前挂载机器人：{}\n
-        最近更新时间：{}
-        谨防盗版，支持白嫖
-    '''.format(
-                "理塘·丁真",
-                "2023-04-03"
-            )
+        最近更新时间：{}\n
+        谨防盗版，支持白嫖\n
+    '''.format(bot_name, update_time)
 )
 
+
+
+# 用法
+@bot.command(
+    name = "usage",
+    description = "怎么用",
+)
+async def usage(ctx: interactions.CommandContext):
+    await ctx.send(
+    '''\n
+        如何狠狠的使用丁真珍珠：\n
+        丁真珍珠目前支持图片的生成与细分，不想支持blend功能，info功能暂时也不打算集成上去\n
+\n
+        指令：\n
+        /fuck 测试用的没什么用\n
+        /dj 等价/imagine\n
+        /xf 细分图片\n
+\n
+        如何进行细分：\n
+        1.先找到你想要进行操作的Midjourney消息，并回复这条消息：丁真\n
+        2.丁真删了你的消息并回复丁真知道了即为成功，失败的话请重试\n
+        3.输入/xf 调整需求后发送指令即可\n
+    '''
+)
+    
 
 
 # 调用imagine
