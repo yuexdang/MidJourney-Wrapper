@@ -14,6 +14,8 @@ CHANNEL_ID = os.environ.get('CHANNEL_ID')
 USE_MESSAGED_CHANNEL = True if(os.environ.get('CHANNEL_SIGN')=="True") else False
 
 #don't edit the following variable
+HAS_RUN = False
+
 MID_JOURNEY_ID = "936929561302675456"  #midjourney bot id
 targetID       = ""
 targetHash     = ""
