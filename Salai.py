@@ -84,9 +84,9 @@ def BlendImg(image: list, dimensions: str):
     options = []
     attachments = []
 
-    for _id, _filename, _uploaded in image:
-        options.append({"type":11,"name":"image{}".format(_id+1),"value":_id})
-        attachments.append({"id":str(_id),"filename":_filename,"uploaded_filename":_uploaded})
+    for _imgObj in image:
+        options.append({"type":11,"name":"image{}".format(_imgObj['id']+1),"value":_imgObj['id']})
+        attachments.append({"id":str(_imgObj['id']),"filename":_imgObj['filename'],"uploaded_filename":_imgObj['uploaded_filename']})
 
     options.append({"type":3,"name":"dimensions","value":dimensions})    
     
@@ -117,5 +117,5 @@ def BlendImg(image: list, dimensions: str):
         'authorization' : Globals.SALAI_TOKEN
     }
     response = requests.post("https://discord.com/api/v9/interactions",
-    json = payload, headers = header)
+                            json = payload, headers = header)
     return response
