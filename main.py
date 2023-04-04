@@ -165,6 +165,10 @@ async def usage(ctx: interactions.CommandContext):
 )
 async def dblend(ctx: interactions.CommandContext, image1: object, image2:object, image3:object = None, image4:object = None, image5:object = None, dimensions:str = "--ar 1:1"):
 
+    if (Globals.USE_MESSAGED_CHANNEL):
+
+        Globals.CHANNEL_ID = str(ctx.channel.id)
+    
     image = []
     try:
         for _imgObj in [image1, image2, image3, image4, image5]:
