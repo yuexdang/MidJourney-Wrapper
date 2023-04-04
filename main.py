@@ -277,19 +277,57 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
 
 	
 @bot.command(
-    name = "test",
-    description = "怎么用",
+    name = "dblend",
+    description = "图像混合",
     options=[
         interactions.Option(
-            name="prompt",
-            description="ces",
+            name="image1",
+            description="图图",
             type=interactions.OptionType.ATTACHMENT,
             required=True,
         ),
+        interactions.Option(
+            name="image2",
+            description="图图",
+            type=interactions.OptionType.ATTACHMENT,
+            required=True,
+        ),
+        interactions.Option(
+            name="dimensions",
+            description="图像尺寸",
+            type=interactions.OptionType.STRING,
+            required=False,
+            choices = [
+                interactions.Choice(name="U:2：3", value="--ar 2:3"),
+                interactions.Choice(name="V:1：1", value="--ar 1:1"),
+                interactions.Choice(name="V:3：2", value="--ar 3:2"),
+            ],
+        ),
+        interactions.Option(
+            name="image3",
+            description="图图",
+            type=interactions.OptionType.ATTACHMENT,
+            required=False,
+        ),
+        interactions.Option(
+            name="image4",
+            description="图图",
+            type=interactions.OptionType.ATTACHMENT,
+            required=False,
+        ),
+        interactions.Option(
+            name="image5",
+            description="图图",
+            type=interactions.OptionType.ATTACHMENT,
+            required=False,
+        ),
     ]
 )
-async def test(ctx: interactions.CommandContext, prompt):
-    await ctx.send(str(prompt))
+async def usage(ctx: interactions.CommandContext, image1: object, image2:object, image3:object = None, image4:object = None, image5:object = None, dimensions:str = "1:1"):
+    await ctx.send(str(ctx))
+    # try:
+    #     image = 
+    await ctx.send(str(image1 ,dimensions))
 	
 
 bot.start()
