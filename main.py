@@ -162,7 +162,7 @@ async def usage(ctx: interactions.CommandContext):
     ]
 )
 async def dblend(ctx: interactions.CommandContext, image1: object, image2:object, image3:object = None, image4:object = None, image5:object = None, dimensions:str = "1:1"):
-    await ctx.send(str(ctx).slice(0,2000))
+    await ctx.send(ctx.user)
     # try:
     #     image = 
     await ctx.send(str(image1 ,dimensions))
