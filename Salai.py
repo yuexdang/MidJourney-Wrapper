@@ -107,7 +107,7 @@ def BlendImg(image: list, dimensions: str):
                         {"type":11,"name":"image4","description":"Fourth image to add to the blend (optional)"},
                         {"type":11,"name":"image5","description":"Fifth image to add to the blend (optional)"}]},
                         "attachments":attachments,
-                },"nonce":"1092826607246114816"
+                }
     }
     header = {
         'authorization' : Globals.SALAI_TOKEN
@@ -130,7 +130,7 @@ def DjFast():
                 "version":"987795926183731231","default_permission":True,"default_member_permissions":None,
                 "type":1,"nsfw":False,"name":"fast","description":"Switch to fast mode","dm_permission":True
                 },"attachments":[]
-        },"nonce":"1092727571503644672"
+        }
     }
     header = {
         'authorization' : Globals.SALAI_TOKEN
@@ -152,7 +152,7 @@ def DjRelax():
                 "version":"987795926183731232","default_permission":True,"default_member_permissions":None,
                 "type":1,"nsfw":False,"name":"relax","description":"Switch to relax mode","dm_permission":True
                 },"attachments":[]
-        },"nonce":"1092728470775005184"
+        }
     }
     header = {
         'authorization' : Globals.SALAI_TOKEN
