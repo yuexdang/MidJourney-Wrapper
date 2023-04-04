@@ -85,7 +85,7 @@ def BlendImg(image: list, dimensions: str):
     attachments = []
 
     for _id, _filename, _uploaded in image:
-        options.append({"type":11,"name":"image"+str(_id+1),"value":_id})
+        options.append({"type":11,"name":"image{}".format(_id+1),"value":_id})
         attachments.append({"id":str(_id),"filename":_filename,"uploaded_filename":_uploaded})
 
     options.append({"type":3,"name":"dimensions","value":dimensions})    
