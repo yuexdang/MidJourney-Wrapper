@@ -320,8 +320,7 @@ async def dj_imagine(ctx, prompt: str,
     prompt = prompt + ' '
 
     try:
-        print(str(image))
-        if image and image.url and "http" in image.url:
+        if hasattr(image,'url') and "http" in image.url:
             prompt = prompt + image.url + " "
             if imageratio > 0:
                 prompt = prompt + "--iw {} ".format(round(((imageratio + 5) * 0.1), 1))
