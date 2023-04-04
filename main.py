@@ -1,4 +1,5 @@
-from Salai import PassPromptToSelfBot, Upscale, MaxUpscale, Variation, BlendImg
+from urllib import response
+from Salai import PassPromptToSelfBot, Upscale, MaxUpscale, Variation, BlendImg, DjRelax, DjFast
 import Globals
 
 import interactions
@@ -114,7 +115,43 @@ async def usage(ctx: interactions.CommandContext):
     
 
 
-# test
+# fast/relax
+@bot.command(
+    name = "speed",
+    description = "调整速度",
+    options=[
+        interactions.Option(
+            name="speedRate",
+            description="生成速度",
+            type=interactions.OptionType.STRING,
+            required=True,
+            choices = [
+                interactions.Choice(name="急速", value="fast"),
+                interactions.Choice(name="缓速", value="relax"),
+            ],
+        )]
+)
+async def speed(ctx: interactions.CommandContext, speedRate: str):
+    if speedRate == "fast":
+        response = DjFast()
+        if response.status_code >= 400:
+            print(response.text)
+            print(response.status_code)
+            await ctx.send("网络错误")
+            return 
+            
+    elif speedRate == "relax":
+        if response.status_code >= 400:
+            print(response.text)
+            print(response.status_code)
+            await ctx.send("网络错误")
+            return 
+            
+    await ctx.send("模式切换至:{}".format(speedRate))
+
+
+
+# blend 图片混合
 
 @bot.command(
     name = "dblend",
@@ -251,13 +288,35 @@ async def dblend(ctx: interactions.CommandContext, image1: object, image2:object
             min_value=0,
             required=False,
         ),
+        interactions.Option(
+            name="image",
+            description="参考图",
+            type=interactions.OptionType.INTEGER,
+            max_value=100,
+            min_value=0,
+            required=False,
+        ),
+        interactions.Option(
+            name="imageRatio",
+            description="参考图占比（ 0 - 15 ）",
+            type=interactions.OptionType.INTEGER,
+            max_value=15,
+            min_value=0,
+            required=False,
+        ),
     ],
 )
-async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, quality: str = "1.0", stylize: int = 2000, seed: int = 5294967295, chaos: int = 0):
+async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, quality: str = "1.0", stylize: int = 2000, seed: int = 5294967295, chaos: int = 0, image: str = "", imageRatio: int = -1):
 
     if (Globals.USE_MESSAGED_CHANNEL):
         # print(ctx.channel)
         Globals.CHANNEL_ID = str(ctx.channel.id)
+
+    if image and "http" in image:
+        prompt = prompt + image
+
+    if image and imageRatio > 0:
+        prompt = prompt + " --iw {}".format(((imageRatio + 5) * 0.1))
 
     prompt = prompt + "--v {} --chaos {}".format(versions, chaos)
 
@@ -281,6 +340,7 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
     
     if stylize > 0 and stylize < 1000:
         prompt = prompt + " --stylize {}".format(stylize)
+
 
     response = PassPromptToSelfBot(prompt)
     
