@@ -245,13 +245,13 @@ async def dblend(ctx: interactions.CommandContext, image1: object, image2:object
         ),
         interactions.Option(
             name="area",
-            description="图像比例( 1：2 ~ 2：1 )",
+            description="图像比例( 1：2 ~ 2：1 ) [V5版本]",
             type=interactions.OptionType.STRING,
             required=False,
         ),
         interactions.Option(
             name="versions",
-            description="MidJourney使用版本( 1 - 5 )",
+            description="MidJourney使用版本( 1 - 5 ) ！强烈建议不要使用，不同版本间特殊参数不同，修改可能会导致无法生成图片！",
             type=interactions.OptionType.INTEGER,
             max_value=5,
             min_value=1,
@@ -259,13 +259,13 @@ async def dblend(ctx: interactions.CommandContext, image1: object, image2:object
         ),
         interactions.Option(
             name="quality",
-            description="图片质量（ 0.25 - 2.0 ）",
+            description="图片质量（ 0.25 - 2.0 ）[V5版本]",
             type=interactions.OptionType.STRING,
             required=False,
         ),
         interactions.Option(
             name="stylize",
-            description="图片参数（ 0 - 1000 ）",
+            description="图片参数（ 0 - 1000 ）[V5版本]",
             type=interactions.OptionType.INTEGER,
             max_value=1000,
             min_value=0,
@@ -281,7 +281,7 @@ async def dblend(ctx: interactions.CommandContext, image1: object, image2:object
         ),
         interactions.Option(
             name="chaos",
-            description="设置四张图像的差异化",
+            description="设置四张图像的差异化 [V5版本]",
             type=interactions.OptionType.INTEGER,
             max_value=100,
             min_value=0,
@@ -295,7 +295,7 @@ async def dblend(ctx: interactions.CommandContext, image1: object, image2:object
         ),
         interactions.Option(
             name="imageratio",
-            description="参考图占比（ 0 - 15 ）",
+            description="参考图占比（ 0 - 15 ）[V5版本]",
             type=interactions.OptionType.INTEGER,
             max_value=15,
             min_value=0,
@@ -303,7 +303,16 @@ async def dblend(ctx: interactions.CommandContext, image1: object, image2:object
         ),
     ],
 )
-async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, quality: str = "1.0", stylize: int = 2000, seed: int = 5294967295, chaos: int = 0, image = None, imageratio: int = -1):
+async def dj_imagine(ctx, prompt: str, 
+                     area: str = "1:1", 
+                     versions: int = -1, 
+                     quality: str = "1.0", 
+                     stylize: int = 2000, 
+                     seed: int = 5294967295, 
+                     chaos: int = -1, 
+                     image = None, 
+                     imageratio: int = -1
+                     ):
 
     if (Globals.USE_MESSAGED_CHANNEL):
         # print(ctx.channel)
@@ -311,15 +320,20 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
     prompt = prompt + ' '
 
     try:
+        print(str(image))
         if image.url and "http" in image.url:
             prompt = prompt + image.url + " "
             if imageratio > 0:
-                prompt = prompt + "--iw {} ".format(((imageratio + 5) * 0.1))
+                prompt = prompt + "--iw {} ".format(round(((imageratio + 5) * 0.1), 1))
     except Exception:
         print(Exception)
         await ctx.send("图片元素出错,请重试")
 
-    prompt = prompt + "--v {} --chaos {} ".format(versions, chaos)
+    if chaos > 0:
+        prompt = prompt + "--chaos {} ".format(chaos)
+
+    if versions > 0:
+        prompt = prompt + "--v {} ".format(versions)
 
     if float(quality) > 0.25 and float(quality) < 2.0:
         prompt = prompt + "--quality {} ".format(quality)
@@ -334,7 +348,7 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
     if float(area_num) > 0.5 and float(area_num) < 2.0 and float(area_num) != 1.0:
         prompt = prompt + "--ar {} ".format(area)
     elif float(area_num) == 1.0:
-        prompt = prompt + "--ar {} ".format("1:1")
+        pass
     
     if seed > 0 and seed < 4294967295:
         prompt = prompt + "--seed {} ".format(seed)
