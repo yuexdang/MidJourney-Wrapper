@@ -275,5 +275,21 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
                                                 Globals.userInfo["userName"],
     ))
 
+	
+@bot.command(
+    name = "test",
+    description = "怎么用",
+    options=[
+        interactions.Option(
+            name="prompt",
+            description="ces",
+            type=interactions.OptionType.MENTIONABLE,
+            required=True,
+        ),
+    ]
+)
+async def usage(ctx: interactions.CommandContext, prompt):
+    await ctx.send(prompt)
+	
 
 bot.start()
