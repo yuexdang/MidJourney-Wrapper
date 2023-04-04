@@ -86,7 +86,7 @@ def BlendImg(image: list, dimensions: str):
             {
                 "id":str(_imgObj['id']),
                 "filename":_imgObj['filename'],
-                "uploaded_filename":_imgObj['uploaded_filename'][:-1]}
+                "uploaded_filename":_imgObj['uploaded_filename']}
             )
 
     options.append({"type":3,"name":"dimensions","value":dimensions})    
