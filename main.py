@@ -338,11 +338,7 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
         await ctx.send("丁真无法理解你打算怎么处理这个图")
         return
 
-    if reset_target:
-        Globals.targetID = ""
-        Globals.userInfo = { "userName":"", "lastTime" : 0, }
-    else:
-        Globals.userInfo["lastTime"] = time.time()
+
     if response.status_code >= 400:
         await ctx.send("再回复一次，丁真忙着回笼没看清")
         return
@@ -350,6 +346,11 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
     await ctx.send("丁真正在对{}的需求进行细分".format(
                                                 Globals.userInfo["userName"],
     ))
-
+    
+    if reset_target:
+        Globals.targetID = ""
+        Globals.userInfo = { "userName":"", "lastTime" : 0, }
+    else:
+        Globals.userInfo["lastTime"] = time.time()
 
 bot.start()
