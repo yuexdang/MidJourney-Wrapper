@@ -1,4 +1,4 @@
-# MidJourney-Wrapper（Yuexdang翻译版）
+# MidJourney-Wrapper（Yuexdang重构版）
 
 ## 代码来源
 作者：[Wildric-Auric](https://github.com/Wildric-Auric) | [yuexdang](https://github.com/yuexdang/)\
