@@ -131,23 +131,20 @@ async def usage(ctx: interactions.CommandContext):
             ],
         )]
 )
-async def speed(ctx: interactions.CommandContext, speedRate: str):
-    if speedRate == "fast":
+async def speed(ctx: interactions.CommandContext, speedrate: str):
+    if speedrate == "fast":
         response = DjFast()
-        if response.status_code >= 400:
-            print(response.text)
-            print(response.status_code)
-            await ctx.send("网络错误")
-            return 
             
-    elif speedRate == "relax":
-        if response.status_code >= 400:
-            print(response.text)
-            print(response.status_code)
-            await ctx.send("网络错误")
-            return 
+    elif speedrate == "relax":
+	response = DjRelax()
+
+    if response.status_code >= 400:
+        print(response.text)
+        print(response.status_code)
+        await ctx.send("网络错误")
+        return 
             
-    await ctx.send("模式切换至:{}".format(speedRate))
+    await ctx.send("模式切换至:{}".format(speedrate))
 
 
 
@@ -297,7 +294,7 @@ async def dblend(ctx: interactions.CommandContext, image1: object, image2:object
             required=False,
         ),
         interactions.Option(
-            name="imageRatio",
+            name="imageratio",
             description="参考图占比（ 0 - 15 ）",
             type=interactions.OptionType.INTEGER,
             max_value=15,
@@ -306,7 +303,7 @@ async def dblend(ctx: interactions.CommandContext, image1: object, image2:object
         ),
     ],
 )
-async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, quality: str = "1.0", stylize: int = 2000, seed: int = 5294967295, chaos: int = 0, image: str = "", imageRatio: int = -1):
+async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, quality: str = "1.0", stylize: int = 2000, seed: int = 5294967295, chaos: int = 0, image: str = "", imageratio: int = -1):
 
     if (Globals.USE_MESSAGED_CHANNEL):
         # print(ctx.channel)
@@ -315,8 +312,8 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
     if image and "http" in image:
         prompt = prompt + image
 
-    if image and imageRatio > 0:
-        prompt = prompt + " --iw {}".format(((imageRatio + 5) * 0.1))
+    if image and imageratio > 0:
+        prompt = prompt + " --iw {}".format(((imageratio + 5) * 0.1))
 
     prompt = prompt + "--v {} --chaos {}".format(versions, chaos)
 
