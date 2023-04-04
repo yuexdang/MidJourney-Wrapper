@@ -107,7 +107,7 @@ def BlendImg(image: list, dimensions: str):
                         {"type":11,"name":"image4","description":"Fourth image to add to the blend (optional)"},
                         {"type":11,"name":"image5","description":"Fifth image to add to the blend (optional)"}]},
                         "attachments":attachments,
-                },"nonce":"1092823639725703168"
+                },"nonce":"1092826607246114816"
     }
     header = {
         'authorization' : Globals.SALAI_TOKEN
