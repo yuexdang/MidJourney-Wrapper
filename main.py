@@ -1,4 +1,6 @@
 from urllib import response
+
+from discord import Object
 from Salai import PassPromptToSelfBot, Upscale, MaxUpscale, Variation, BlendImg, DjRelax, DjFast
 import Globals
 
@@ -115,7 +117,7 @@ async def usage(ctx: interactions.CommandContext):
     
 
 
-# speed 调整 fast/relax
+# fast/relax
 @bot.command(
     name = "speed",
     description = "调整速度",
@@ -136,7 +138,7 @@ async def speed(ctx: interactions.CommandContext, speedrate: str):
         response = DjFast()
             
     elif speedrate == "relax":
-	response = DjRelax()
+        response = DjRelax()
 
     if response.status_code >= 400:
         print(response.text)
@@ -288,9 +290,7 @@ async def dblend(ctx: interactions.CommandContext, image1: object, image2:object
         interactions.Option(
             name="image",
             description="参考图",
-            type=interactions.OptionType.INTEGER,
-            max_value=100,
-            min_value=0,
+            type=interactions.OptionType.ATTACHMENT,
             required=False,
         ),
         interactions.Option(
@@ -303,17 +303,19 @@ async def dblend(ctx: interactions.CommandContext, image1: object, image2:object
         ),
     ],
 )
-async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, quality: str = "1.0", stylize: int = 2000, seed: int = 5294967295, chaos: int = 0, image: str = "", imageratio: int = -1):
+async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, quality: str = "1.0", stylize: int = 2000, seed: int = 5294967295, chaos: int = 0, image = None, imageratio: int = -1):
 
     if (Globals.USE_MESSAGED_CHANNEL):
         # print(ctx.channel)
         Globals.CHANNEL_ID = str(ctx.channel.id)
-
-    if image and "http" in image:
-        prompt = prompt + image
-
-    if image and imageratio > 0:
-        prompt = prompt + " --iw {}".format(((imageratio + 5) * 0.1))
+    try:
+        if image.url and "http" in image.url:
+            prompt = prompt + image
+            if imageratio > 0:
+                prompt = prompt + " --iw {}".format(((imageratio + 5) * 0.1))
+    except Exception:
+        print(Exception)
+        await ctx.send("图片元素出错,请重试")
 
     prompt = prompt + "--v {} --chaos {}".format(versions, chaos)
 
