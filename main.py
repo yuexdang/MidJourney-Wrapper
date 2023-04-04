@@ -323,7 +323,7 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
         ),
     ]
 )
-async def usage(ctx: interactions.CommandContext, image1: object, image2:object, image3:object = None, image4:object = None, image5:object = None, dimensions:str = "1:1"):
+async def dblend(ctx: interactions.CommandContext, image1: object, image2:object, image3:object = None, image4:object = None, image5:object = None, dimensions:str = "1:1"):
     await ctx.send(str(ctx))
     # try:
     #     image = 
