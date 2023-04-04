@@ -289,7 +289,7 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
     ]
 )
 async def test(ctx: interactions.CommandContext, prompt):
-    await ctx.send(prompt)
+    await ctx.send(str(prompt))
 	
 
 bot.start()
