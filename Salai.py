@@ -15,10 +15,6 @@ def PassPromptToSelfBot(prompt : str):
                                              "options":[{"type":3,"name":"prompt","description":"The prompt to imagine","required":True}]},
               "attachments":[]}}
     
-    {"type":2,"application_id":Globals.MID_JOURNEY_ID,
-     "guild_id":"1091688748728733777","channel_id":"1091688749877969052","session_id":"a1dd523030181a4c27005dd743b50a28",
-     "data":{"version":"1077969938624553050","id":"938956540159881230","name":"imagine","type":1,"options":[{"type":3,"name":"prompt","value":"girl"}],"application_command":{"id":"938956540159881230","application_id":Globals.MID_JOURNEY_ID,"version":"1077969938624553050","default_permission":True,"default_member_permissions":None,"type":1,"nsfw":False,"name":"imagine","description":"Create images with Midjourney","dm_permission":True,"options":[{"type":3,"name":"prompt","description":"The prompt to imagine","required":True}]},"attachments":[]},"nonce":"1092673769505292288"}
-
     header = {
         'authorization' : Globals.SALAI_TOKEN
     }
@@ -111,7 +107,7 @@ def BlendImg(image: list, dimensions: str):
                         {"type":11,"name":"image4","description":"Fourth image to add to the blend (optional)"},
                         {"type":11,"name":"image5","description":"Fifth image to add to the blend (optional)"}]},
                         "attachments":attachments,
-                },"nonce":"1092666314859741184"
+                },"nonce":"1092714668566249472"
     }
     header = {
         'authorization' : Globals.SALAI_TOKEN
