@@ -288,7 +288,7 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
         ),
     ]
 )
-async def usage(ctx: interactions.CommandContext, prompt):
+async def test(ctx: interactions.CommandContext, prompt):
     await ctx.send(prompt)
 	
 
