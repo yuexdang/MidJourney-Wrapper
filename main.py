@@ -152,83 +152,83 @@ async def speed(ctx: interactions.CommandContext, speedrate: str):
 
 # blend 图片混合
 
-@bot.command(
-    name = "dblend",
-    description = "图像混合",
-    options=[
-        interactions.Option(
-            name="image1",
-            description="图图",
-            type=interactions.OptionType.ATTACHMENT,
-            required=True,
-        ),
-        interactions.Option(
-            name="image2",
-            description="图图",
-            type=interactions.OptionType.ATTACHMENT,
-            required=True,
-        ),
-        interactions.Option(
-            name="dimensions",
-            description="图像尺寸",
-            type=interactions.OptionType.STRING,
-            required=False,
-            choices = [
-                interactions.Choice(name="2：3 → 半身", value="--ar 2:3"),
-                interactions.Choice(name="1：1 → 矩形", value="--ar 1:1"),
-                interactions.Choice(name="3：2 → 广角", value="--ar 3:2"),
-            ],
-        ),
-        interactions.Option(
-            name="image3",
-            description="图图",
-            type=interactions.OptionType.ATTACHMENT,
-            required=False,
-        ),
-        interactions.Option(
-            name="image4",
-            description="图图",
-            type=interactions.OptionType.ATTACHMENT,
-            required=False,
-        ),
-        interactions.Option(
-            name="image5",
-            description="图图",
-            type=interactions.OptionType.ATTACHMENT,
-            required=False,
-        ),
-    ]
-)
-async def dblend(ctx: interactions.CommandContext, image1: object, image2:object, image3:object = None, image4:object = None, image5:object = None, dimensions:str = "--ar 1:1"):
+# @bot.command(
+#     name = "dblend",
+#     description = "图像混合",
+#     options=[
+#         interactions.Option(
+#             name="image1",
+#             description="图图",
+#             type=interactions.OptionType.ATTACHMENT,
+#             required=True,
+#         ),
+#         interactions.Option(
+#             name="image2",
+#             description="图图",
+#             type=interactions.OptionType.ATTACHMENT,
+#             required=True,
+#         ),
+#         interactions.Option(
+#             name="dimensions",
+#             description="图像尺寸",
+#             type=interactions.OptionType.STRING,
+#             required=False,
+#             choices = [
+#                 interactions.Choice(name="2：3 → 半身", value="--ar 2:3"),
+#                 interactions.Choice(name="1：1 → 矩形", value="--ar 1:1"),
+#                 interactions.Choice(name="3：2 → 广角", value="--ar 3:2"),
+#             ],
+#         ),
+#         interactions.Option(
+#             name="image3",
+#             description="图图",
+#             type=interactions.OptionType.ATTACHMENT,
+#             required=False,
+#         ),
+#         interactions.Option(
+#             name="image4",
+#             description="图图",
+#             type=interactions.OptionType.ATTACHMENT,
+#             required=False,
+#         ),
+#         interactions.Option(
+#             name="image5",
+#             description="图图",
+#             type=interactions.OptionType.ATTACHMENT,
+#             required=False,
+#         ),
+#     ]
+# )
+# async def dblend(ctx: interactions.CommandContext, image1: object, image2:object, image3:object = None, image4:object = None, image5:object = None, dimensions:str = "--ar 1:1"):
 
-    if (Globals.USE_MESSAGED_CHANNEL):
+#     if (Globals.USE_MESSAGED_CHANNEL):
 
-        Globals.CHANNEL_ID = str(ctx.channel.id)
+#         Globals.CHANNEL_ID = str(ctx.channel.id)
     
-    image = []
-    try:
-        for _imgObj in [image1, image2, image3, image4, image5]:
-            if _imgObj:
-                image.append({
-                    "id": len(image),
-                    "filename": _imgObj.filename,
-                    "uploaded_filename": _imgObj.url
-                })
+#     image = []
+#     try:
+#         for _imgObj in [image1, image2, image3, image4, image5]:
+#             if _imgObj:
+#                 image.append({
+#                     "id": len(image),
+#                     "filename": _imgObj.filename,
+#                     "uploaded_filename": _imgObj.url
+#                 })
         
-        response = BlendImg(image, dimensions)
+#         response = BlendImg(image, dimensions)
         
-        if response.status_code >= 400:
-            print(response.text)
-            print(response.status_code)
-            await ctx.send("网络错误")
-        else:
+#         if response.status_code >= 400:
+#             print(response.text)
+#             print(response.status_code)
+#             await ctx.send("网络错误")
+#         else:
                 
-            print("混合图像：image:{}, dimensions:{}".format(image, dimensions))
-            await ctx.send("""丁真正在根据以下内容生成混合图片：图片组：{}，画面尺寸：{}""".format(image, dimensions))
+#             print("混合图像：image:{}, dimensions:{}".format(image, dimensions))
+#             await ctx.send("""丁真正在根据以下内容生成混合图片：图片组：{}，画面尺寸：{}""".format(image, dimensions))
     
-    except Exception:
-        print(Exception)
-        await ctx.send("丁真抽嗨了，再发一次吧")
+#     except Exception:
+#         print(Exception)
+#         await ctx.send("丁真抽嗨了，再发一次吧")
 
 
 
