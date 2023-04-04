@@ -1,4 +1,4 @@
-from Salai import PassPromptToSelfBot, Upscale, MaxUpscale, Variation
+from Salai import PassPromptToSelfBot, Upscale, MaxUpscale, Variation, BlendImg
 import Globals
 
 import interactions
@@ -161,11 +161,31 @@ async def usage(ctx: interactions.CommandContext):
         ),
     ]
 )
-async def dblend(ctx: interactions.CommandContext, image1: object, image2:object, image3:object = None, image4:object = None, image5:object = None, dimensions:str = "1:1"):
-    await ctx.send(str(ctx.user))
-    # try:
-    #     image = 
-    await ctx.send(str(image1), str(image2), str(dimensions))
+async def dblend(ctx: interactions.CommandContext, image1: object, image2:object, image3:object = None, image4:object = None, image5:object = None, dimensions:str = "--ar 1:1"):
+
+    image = []
+    try:
+        for _imgObj in [image1, image2, image3, image4, image5]:
+            if _imgObj:
+                image.append({
+                    "id": len(image),
+                    "filename": _imgObj.filename,
+                    "uploaded_filename": _imgObj.url
+                })
+        
+        response = BlendImg(image, dimensions)
+        
+        if response.status_code >= 400:
+            print(response.txt)
+            print(response.status_code)
+            await ctx.send("网络错误")
+        else:
+                
+            print("混合图像：image:{}, dimensions:{}".format(image, dimensions))
+            await ctx.send("""丁真正在根据以下内容生成混合图片：图片组：{}，画面尺寸：{}""".format(image, dimensions))
+    
+    except:
+        await ctx.send("丁真抽嗨了，再发一次吧")
 
 
 
@@ -302,7 +322,7 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
 )
 async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target : bool = True):
 
-    if Globals.targetID == "":
+    if Globals.targetID == "" or Globals.userInfo["userName"] == "" or str(ctx.user.username) != Globals.userInfo["userName"]:
         await ctx.send('你还没有给丁真说用哪个图')
         return
 
