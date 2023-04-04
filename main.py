@@ -184,7 +184,8 @@ async def dblend(ctx: interactions.CommandContext, image1: object, image2:object
             print("混合图像：image:{}, dimensions:{}".format(image, dimensions))
             await ctx.send("""丁真正在根据以下内容生成混合图片：图片组：{}，画面尺寸：{}""".format(image, dimensions))
     
-    except:
+    except Exception:
+        print(Exception)
         await ctx.send("丁真抽嗨了，再发一次吧")
 
 
