@@ -310,7 +310,7 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
         Globals.CHANNEL_ID = str(ctx.channel.id)
     try:
         if image.url and "http" in image.url:
-            prompt = prompt + image
+            prompt = prompt + image.url
             if imageratio > 0:
                 prompt = prompt + " --iw {}".format(((imageratio + 5) * 0.1))
     except Exception:
