@@ -82,12 +82,7 @@ def BlendImg(image: list, dimensions: str):
 
     for _imgObj in image:
         options.append({"type":11,"name":"image{}".format(_imgObj['id']+1),"value":_imgObj['id']})
-        attachments.append(
-            {
-                "id":str(_imgObj['id']),
-                "filename":_imgObj['filename'],
-                "uploaded_filename":_imgObj['uploaded_filename']}
-            )
+        attachments.append({"id":str(_imgObj['id']),"filename":_imgObj['filename'],"uploaded_filename":_imgObj['uploaded_filename']})
 
     options.append({"type":3,"name":"dimensions","value":dimensions})    
     
@@ -112,7 +107,7 @@ def BlendImg(image: list, dimensions: str):
                         {"type":11,"name":"image4","description":"Fourth image to add to the blend (optional)"},
                         {"type":11,"name":"image5","description":"Fifth image to add to the blend (optional)"}]},
                         "attachments":attachments,
-                },"nonce":"1092831202974367744",
+                },"nonce":"1092826607246114816"
     }
     header = {
         'authorization' : Globals.SALAI_TOKEN
