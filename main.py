@@ -283,7 +283,7 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
         interactions.Option(
             name="prompt",
             description="ces",
-            type=interactions.OptionType.MENTIONABLE,
+            type=interactions.OptionType.ATTACHMENT,
             required=True,
         ),
     ]
