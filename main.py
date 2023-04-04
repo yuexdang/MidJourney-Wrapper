@@ -128,8 +128,8 @@ async def usage(ctx: interactions.CommandContext):
             type=interactions.OptionType.STRING,
             required=True,
             choices = [
-                interactions.Choice(name="急速", value="fast"),
-                interactions.Choice(name="缓速", value="relax"),
+                interactions.Choice(name="极速生成", value="fast"),
+                interactions.Choice(name="缓速生成", value="relax"),
             ],
         )]
 )
