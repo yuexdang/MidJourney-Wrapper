@@ -38,12 +38,14 @@ async def on_message_create(message):
         elif "丁真" in message.content and "@" in message.referenced_message.content:
             try:
                 if Globals.targetID:
-                    if time.time() - Globals.userInfo['lastTime'] <= Globals.waitTime:
+                    if time.time() - Globals.userInfo['lastTime'] <= Globals.waitTime and message.author.username != Globals.userInfo["userName"]:
                         await message.reply("目前丁真正在为{}进行一眼鉴定，请于{}s后进行重试".format(
                                                                                 Globals.userInfo["userName"],
                                                                                 Globals.waitTime - int( time.time() - Globals.userInfo['lastTime'] ),
                                                                                 ))
                         return
+                    elif message.author.username == Globals.userInfo["userName"]:
+                        await message.reply("用户{}的目标已重新确立，时间已刷新".format(Globals.userInfo["userName"]))
                 Globals.targetID = str(message.message_reference.message_id)
             #Get the hash from the url
                 Globals.targetHash = str((message.referenced_message.attachments[0].url.split("_")[-1]).split(".")[0])
@@ -346,7 +348,7 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
     await ctx.send("丁真正在对{}的需求进行细分".format(
                                                 Globals.userInfo["userName"],
     ))
-    
+
     if reset_target:
         Globals.targetID = ""
         Globals.userInfo = { "userName":"", "lastTime" : 0, }
