@@ -115,3 +115,49 @@ def BlendImg(image: list, dimensions: str):
     response = requests.post("https://discord.com/api/v9/interactions",
                             json = payload, headers = header)
     return response
+
+
+def DjFast():
+    payload = {
+        "type":2,"application_id":Globals.MID_JOURNEY_ID,
+        "guild_id":Globals.SERVER_ID,"channel_id":Globals.CHANNEL_ID,
+        "session_id":"12bf03bdb48bad6ce59e0291c483bb44",
+        "data":{
+            "version":"987795926183731231","id":"972289487818334212",
+            "name":"fast","type":1,"options":[],
+            "application_command":{
+                "id":"972289487818334212","application_id":Globals.MID_JOURNEY_ID,
+                "version":"987795926183731231","default_permission":True,"default_member_permissions":None,
+                "type":1,"nsfw":False,"name":"fast","description":"Switch to fast mode","dm_permission":True
+                },"attachments":[]
+        },"nonce":"1092727571503644672"
+    }
+    header = {
+        'authorization' : Globals.SALAI_TOKEN
+    }
+    response = requests.post("https://discord.com/api/v9/interactions",
+                            json = payload, headers = header)
+    return response
+
+def DjRelax():
+    payload = {
+        "type":2,"application_id":Globals.MID_JOURNEY_ID,
+        "guild_id":Globals.SERVER_ID,"channel_id":Globals.CHANNEL_ID,
+        "session_id":"12bf03bdb48bad6ce59e0291c483bb44",
+        "data":{
+            "version":"987795926183731232","id":"972289487818334213",
+            "name":"relax","type":1,"options":[],
+            "application_command":{
+                "id":"972289487818334212","application_id":Globals.MID_JOURNEY_ID,
+                "version":"987795926183731232","default_permission":True,"default_member_permissions":None,
+                "type":1,"nsfw":False,"name":"relax","description":"Switch to relax mode","dm_permission":True
+                },"attachments":[]
+        },"nonce":"1092728470775005184"
+    }
+    header = {
+        'authorization' : Globals.SALAI_TOKEN
+    }
+    response = requests.post("https://discord.com/api/v9/interactions",
+                            json = payload, headers = header)
+    return response
+
