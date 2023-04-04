@@ -164,30 +164,29 @@ async def usage(ctx: interactions.CommandContext):
 async def dblend(ctx: interactions.CommandContext, image1: object, image2:object, image3:object = None, image4:object = None, image5:object = None, dimensions:str = "--ar 1:1"):
 
     image = []
-    # try:
-    for _imgObj in [image1, image2, image3, image4, image5]:
-        if _imgObj:
-            image.append({
-                "id": len(image),
-                "filename": _imgObj.filename,
-                "uploaded_filename": _imgObj.url
-            })
+    try:
+        for _imgObj in [image1, image2, image3, image4, image5]:
+            if _imgObj:
+                image.append({
+                    "id": len(image),
+                    "filename": _imgObj.filename,
+                    "uploaded_filename": _imgObj.url
+                })
+        
+        response = BlendImg(image, dimensions)
+        
+        if response.status_code >= 400:
+            print(response.text)
+            print(response.status_code)
+            await ctx.send("网络错误")
+        else:
+                
+            print("混合图像：image:{}, dimensions:{}".format(image, dimensions))
+            await ctx.send("""丁真正在根据以下内容生成混合图片：图片组：{}，画面尺寸：{}""".format(image, dimensions))
     
-    response = BlendImg(image, dimensions)
-    
-    if response.status_code >= 400:
-        print(response.txt)
-        print(response.status_code)
-        await ctx.send("网络错误")
-    else:
-            
-        print("混合图像：image:{}, dimensions:{}".format(image, dimensions))
-        await ctx.send("""丁真正在根据以下内容生成混合图片：图片组：{}，画面尺寸：{}""".format(image, dimensions))
-    
-    # except Exception:
-    #     print(Exception)
-    #     await ctx.send("丁真抽嗨了，再发一次吧")
-
+    except Exception:
+        print(Exception)
+        await ctx.send("丁真抽嗨了，再发一次吧")
 
 
 
@@ -280,7 +279,7 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
     response = PassPromptToSelfBot(prompt)
     
     if response.status_code >= 400:
-        print(response.txt)
+        print(response.text)
         print(response.status_code)
         await ctx.send("丁真也不知道哦，再发一次去问问丽丽...")
     else:
