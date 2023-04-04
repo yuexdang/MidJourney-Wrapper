@@ -112,6 +112,7 @@ def BlendImg(image: list, dimensions: str):
     header = {
         'authorization' : Globals.SALAI_TOKEN
     }
+    print(payload)
     response = requests.post("https://discord.com/api/v9/interactions",
                             json = payload, headers = header)
     return response
