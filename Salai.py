@@ -89,7 +89,7 @@ def BlendImg(image: list, dimensions: str):
     payload = {
         "type":2,"application_id":Globals.MID_JOURNEY_ID,
         "guild_id":Globals.SERVER_ID,"channel_id":Globals.CHANNEL_ID,
-        "session_id":"12bf03bdb48bad6ce59e0291c483bb44",
+        "session_id":"2e7e35bd8fe36cfca73a9ca7e1657e60",
         "data":{
             "version":"1067631020041580584","id":"1062880104792997970",
             "name":"blend","type":1,"options":options,
@@ -107,7 +107,7 @@ def BlendImg(image: list, dimensions: str):
                         {"type":11,"name":"image4","description":"Fourth image to add to the blend (optional)"},
                         {"type":11,"name":"image5","description":"Fifth image to add to the blend (optional)"}]},
                         "attachments":attachments,
-                },"nonce":"1092724582940409856"
+                },"nonce":"1092823639725703168"
     }
     header = {
         'authorization' : Globals.SALAI_TOKEN
