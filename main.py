@@ -115,13 +115,13 @@ async def usage(ctx: interactions.CommandContext):
     
 
 
-# fast/relax
+# speed 调整 fast/relax
 @bot.command(
     name = "speed",
     description = "调整速度",
     options=[
         interactions.Option(
-            name="speedRate",
+            name="speedrate",
             description="生成速度",
             type=interactions.OptionType.STRING,
             required=True,
