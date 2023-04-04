@@ -112,6 +112,62 @@ async def usage(ctx: interactions.CommandContext):
     
 
 
+# test
+
+@bot.command(
+    name = "dblend",
+    description = "图像混合",
+    options=[
+        interactions.Option(
+            name="image1",
+            description="图图",
+            type=interactions.OptionType.ATTACHMENT,
+            required=True,
+        ),
+        interactions.Option(
+            name="image2",
+            description="图图",
+            type=interactions.OptionType.ATTACHMENT,
+            required=True,
+        ),
+        interactions.Option(
+            name="dimensions",
+            description="图像尺寸",
+            type=interactions.OptionType.STRING,
+            required=False,
+            choices = [
+                interactions.Choice(name="2：3 → 半身", value="--ar 2:3"),
+                interactions.Choice(name="1：1 → 矩形", value="--ar 1:1"),
+                interactions.Choice(name="3：2 → 广角", value="--ar 3:2"),
+            ],
+        ),
+        interactions.Option(
+            name="image3",
+            description="图图",
+            type=interactions.OptionType.ATTACHMENT,
+            required=False,
+        ),
+        interactions.Option(
+            name="image4",
+            description="图图",
+            type=interactions.OptionType.ATTACHMENT,
+            required=False,
+        ),
+        interactions.Option(
+            name="image5",
+            description="图图",
+            type=interactions.OptionType.ATTACHMENT,
+            required=False,
+        ),
+    ]
+)
+async def dblend(ctx: interactions.CommandContext, image1: object, image2:object, image3:object = None, image4:object = None, image5:object = None, dimensions:str = "1:1"):
+    await ctx.send(str(ctx).slice(0,2000))
+    # try:
+    #     image = 
+    await ctx.send(str(image1 ,dimensions))
+
+
 
 # 调用imagine
 @bot.command(
@@ -222,6 +278,8 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
             name="number",
             description="选择需要细分图片",
             type=interactions.OptionType.INTEGER,
+            max_value=4,
+            min_value=1,
             required=True,
         ),
         interactions.Option(
@@ -243,9 +301,6 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
     ],
 )
 async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target : bool = True):
-    if (number <= 0 or number > 4):
-        await ctx.send("丁真只能数到四")
-        return
 
     if Globals.targetID == "":
         await ctx.send('你还没有给丁真说用哪个图')
@@ -275,59 +330,5 @@ async def dj_subdivision(ctx, number: int, change_sign: str = "U", reset_target 
                                                 Globals.userInfo["userName"],
     ))
 
-	
-@bot.command(
-    name = "dblend",
-    description = "图像混合",
-    options=[
-        interactions.Option(
-            name="image1",
-            description="图图",
-            type=interactions.OptionType.ATTACHMENT,
-            required=True,
-        ),
-        interactions.Option(
-            name="image2",
-            description="图图",
-            type=interactions.OptionType.ATTACHMENT,
-            required=True,
-        ),
-        interactions.Option(
-            name="dimensions",
-            description="图像尺寸",
-            type=interactions.OptionType.STRING,
-            required=False,
-            choices = [
-                interactions.Choice(name="U:2：3", value="--ar 2:3"),
-                interactions.Choice(name="V:1：1", value="--ar 1:1"),
-                interactions.Choice(name="V:3：2", value="--ar 3:2"),
-            ],
-        ),
-        interactions.Option(
-            name="image3",
-            description="图图",
-            type=interactions.OptionType.ATTACHMENT,
-            required=False,
-        ),
-        interactions.Option(
-            name="image4",
-            description="图图",
-            type=interactions.OptionType.ATTACHMENT,
-            required=False,
-        ),
-        interactions.Option(
-            name="image5",
-            description="图图",
-            type=interactions.OptionType.ATTACHMENT,
-            required=False,
-        ),
-    ]
-)
-async def dblend(ctx: interactions.CommandContext, image1: object, image2:object, image3:object = None, image4:object = None, image5:object = None, dimensions:str = "1:1"):
-    await ctx.send(str(ctx))
-    # try:
-    #     image = 
-    await ctx.send(str(image1 ,dimensions))
-	
 
 bot.start()
