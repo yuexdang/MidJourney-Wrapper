@@ -128,8 +128,8 @@ async def usage(ctx: interactions.CommandContext):
             type=interactions.OptionType.STRING,
             required=True,
             choices = [
-                interactions.Choice(name="极速生成", value="fast"),
-                interactions.Choice(name="缓速生成", value="relax"),
+                interactions.Choice(name="极速出图", value="fast"),
+                interactions.Choice(name="缓速出图", value="relax"),
             ],
         )]
 )
@@ -308,19 +308,21 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
     if (Globals.USE_MESSAGED_CHANNEL):
         # print(ctx.channel)
         Globals.CHANNEL_ID = str(ctx.channel.id)
+    prompt = prompt + ' '
+
     try:
         if image.url and "http" in image.url:
-            prompt = prompt + image.url
+            prompt = prompt + image.url + " "
             if imageratio > 0:
-                prompt = prompt + " --iw {}".format(((imageratio + 5) * 0.1))
+                prompt = prompt + "--iw {} ".format(((imageratio + 5) * 0.1))
     except Exception:
         print(Exception)
         await ctx.send("图片元素出错,请重试")
 
-    prompt = prompt + "--v {} --chaos {}".format(versions, chaos)
+    prompt = prompt + "--v {} --chaos {} ".format(versions, chaos)
 
     if float(quality) > 0.25 and float(quality) < 2.0:
-        prompt = prompt + " --quality {}".format(quality)
+        prompt = prompt + "--quality {} ".format(quality)
     
     area_num = int(area.split(":")[0])/int(area.split(":")[1]) \
                 if \
@@ -330,15 +332,15 @@ async def dj_imagine(ctx, prompt: str, area: str = "1:1", versions: int = 5, qua
                 else 1
 
     if float(area_num) > 0.5 and float(area_num) < 2.0 and float(area_num) != 1.0:
-        prompt = prompt + " --ar {}".format(area)
+        prompt = prompt + "--ar {} ".format(area)
     elif float(area_num) == 1.0:
-        prompt = prompt + " --ar {}".format("1:1")
+        prompt = prompt + "--ar {} ".format("1:1")
     
     if seed > 0 and seed < 4294967295:
-        prompt = prompt + " --seed {}".format(seed)
+        prompt = prompt + "--seed {} ".format(seed)
     
     if stylize > 0 and stylize < 1000:
-        prompt = prompt + " --stylize {}".format(stylize)
+        prompt = prompt + "--stylize {} ".format(stylize)
 
 
     response = PassPromptToSelfBot(prompt)
