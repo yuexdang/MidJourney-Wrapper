@@ -165,7 +165,7 @@ async def dblend(ctx: interactions.CommandContext, image1: object, image2:object
     await ctx.send(ctx.user)
     # try:
     #     image = 
-    await ctx.send(str(image1 ,dimensions))
+    await ctx.send(str(image1), str(image2), str(dimensions))
 
 
 
