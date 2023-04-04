@@ -101,12 +101,12 @@ def BlendImg(image: list, dimensions: str):
                 "application_command":{
                     "id":"1062880104792997970","application_id":Globals.MID_JOURNEY_ID,
                     "version":"1067631020041580584",
-                    "default_permission":true,
-                    "default_member_permissions":null,"type":1,"nsfw":false,
+                    "default_permission":True,
+                    "default_member_permissions":None,"type":1,"nsfw":False,
                     "name":"blend","description":"Blend images together seamlessly!",
-                    "dm_permission":true,"options":[
-                        {"type":11,"name":"image1","description":"First image to add to the blend","required":true},
-                        {"type":11,"name":"image2","description":"Second image to add to the blend","required":true},
+                    "dm_permission":True,"options":[
+                        {"type":11,"name":"image1","description":"First image to add to the blend","required":True},
+                        {"type":11,"name":"image2","description":"Second image to add to the blend","required":True},
                         {"type":3,"name":"dimensions","description":"The dimensions of the image. If not specified, the image will be square.","choices":[{"name":"Portrait","value":"--ar 2:3"},{"name":"Square","value":"--ar 1:1"},{"name":"Landscape","value":"--ar 3:2"}]},
                         {"type":11,"name":"image3","description":"Third image to add to the blend (optional)"},
                         {"type":11,"name":"image4","description":"Fourth image to add to the blend (optional)"},
