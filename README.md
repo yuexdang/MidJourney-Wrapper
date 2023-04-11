@@ -1,5 +1,9 @@
 # MidJourney-Wrapper（Yuexdang重构版）
 
+# 不再基于原作者代码进行更新，重构版本请见 [DandJourney V2.0](https://github.com/yuexdang/DandJourney)
+
+目前的代码仅仅是在原作者的基础上进行更迭，已经没有办法去满足更多元的需求了，我决定重新开始写一个，如果想获取更多的信息，可以去关注一下上面发的DandJourney，现在已经找到了很多志同道合的朋友去一起构建这个系统，相信能够带来一个更为完美的Python机器人。
+
 ## 代码来源
 作者：[Wildric-Auric](https://github.com/Wildric-Auric) | [yuexdang](https://github.com/yuexdang/)\
 原始版本：[MidJourney-Wrapper](https://github.com/Wildric-Auric/MidJourney-Wrapper)
